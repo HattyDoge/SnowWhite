@@ -1,4 +1,5 @@
 ﻿//Frassineti Leonardo 4H 2023-09-28
+//Capire come funziona il multi-threading attraverso una gara di corsa tra 3 persone
 using System.Threading;
 using static System.Console;
 namespace ConsoleAppCorsa
@@ -95,8 +96,11 @@ namespace ConsoleAppCorsa
             //Carlo
             Thread thCarlo = new Thread(Carlo);
 
-            thAndrea.Start();
             thBaldo.Start();
+            Thread.Sleep(3000);
+            thAndrea.Start();
+//          thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
+            thBaldo.Join(); 
             thCarlo.Start();
 
             ReadLine();
