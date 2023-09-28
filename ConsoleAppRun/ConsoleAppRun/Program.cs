@@ -82,6 +82,7 @@ namespace ConsoleAppCorsa
                 SetCursorPosition(posCarlo, 11);
                 Write(@" (T-T)");
                 Thread.Sleep(carloSpeed);
+                
             }
         }
         static void Main(string[] args)
