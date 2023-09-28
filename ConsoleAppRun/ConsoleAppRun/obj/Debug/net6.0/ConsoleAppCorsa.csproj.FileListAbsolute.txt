@@ -1,0 +1,15 @@
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\net6.0\ConsoleAppCorsa.exe
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\net6.0\ConsoleAppCorsa.deps.json
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\net6.0\ConsoleAppCorsa.runtimeconfig.json
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\net6.0\ConsoleAppCorsa.dll
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\net6.0\ConsoleAppCorsa.pdb
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.csproj.AssemblyReference.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.AssemblyInfoInputs.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.AssemblyInfo.cs
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.csproj.CoreCompileInputs.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.dll
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\refint\ConsoleAppCorsa.dll
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.pdb
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ConsoleAppCorsa.genruntimeconfig.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\net6.0\ref\ConsoleAppCorsa.dll
