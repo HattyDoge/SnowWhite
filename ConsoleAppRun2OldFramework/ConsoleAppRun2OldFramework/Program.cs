@@ -13,53 +13,29 @@ namespace ConsoleAppCorsa
         static int classifica = 0;
         static void Pronti()
         {
-            SetCursorPosition(posAndrea, 2);
-            Write("Andrea");
-            SetCursorPosition(posAndrea, 3);
-            Write(@" ( - L -)");
-            SetCursorPosition(posAndrea, 4);
-            Write(@"   /▓\");
-            SetCursorPosition(posAndrea, 5);
-            Write(@"   ┘└");
-            SetCursorPosition(posBaldo, 6);
-            Write("Baldo");
-            SetCursorPosition(posBaldo, 7);
-            Write(@"    (°W°)");
-            SetCursorPosition(posBaldo, 8);
-            Write(@"   ╔╗╔█╗╔╗");
-            SetCursorPosition(posBaldo, 9);
-            Write(@"   ╚═╝║╚═╝");
-            SetCursorPosition(posCarlo, 10);
-            Write("Carlo");
-            SetCursorPosition(posCarlo, 11);
-            Write(@" (T-T)");
-            SetCursorPosition(posCarlo, 12);
-            Write(@"  ┌■┐");
-            SetCursorPosition(posCarlo, 13);
-            Write(@"  /\");
+            WriteDown("Andrea", posAndrea, 2);
+            WriteDown(@" ( - L -)", posAndrea, 3);
+            WriteDown(@"   /▓\", posAndrea, 4);
+            WriteDown(@"   ┘└", posAndrea, 5);
+            WriteDown("Baldo", posBaldo, 6);
+            WriteDown(@"   (°W°)", posBaldo, 7);
+            WriteDown(@"  ╔╗╔█╗╔╗", posBaldo, 8);
+            WriteDown(@"  ╚═╝║╚═╝", posBaldo, 9);
+            WriteDown("Carlo", posCarlo, 10);
+            WriteDown(@" (T-T)", posCarlo, 11);
+            WriteDown(@"  ┌■┐", posCarlo, 12);
+            WriteDown(@"  /\", posCarlo, 13);
         }
         static void Andrea()
         {
             int andreaSpeed = 40;
             for (posAndrea = 0; posAndrea < 114; posAndrea++)
             {
-                lock (lock_)
-                {
-                    SetCursorPosition(posAndrea, 5);
-                    Write(@"   ┘└");
-                }
+                WriteDown(@"   ┘└", posAndrea, 5);
                 Thread.Sleep(andreaSpeed);
-                lock (lock_)
-                {
-                    SetCursorPosition(posAndrea, 4);
-                    Write(@"   /▓\");
-                }
+                WriteDown(@"   /▓\", posAndrea, 4);
                 Thread.Sleep(andreaSpeed);
-                lock (lock_)
-                {
-                    SetCursorPosition(posAndrea, 3);
-                    Write(@" ( - L -)");
-                }
+                WriteDown(@" ( - L -)", posAndrea, 3);
                 Thread.Sleep(andreaSpeed);
             }
             lock (lock_)
@@ -74,23 +50,11 @@ namespace ConsoleAppCorsa
             int baldoSpeed = 40;
             for (posBaldo = 0; posBaldo < 114; posBaldo++)
             {
-                lock (lock_)
-                {
-                    SetCursorPosition(posBaldo, 9);
-                    Write(@"   ╚═╝║╚═╝");
-                }
+                WriteDown(@"  ╚═╝║╚═╝",posBaldo, 9);
                 Thread.Sleep(baldoSpeed);
-                lock (lock_)
-                {
-                    SetCursorPosition(posBaldo, 8);
-                    Write(@"   ╔╗╔█╗╔╗");
-                }
+                WriteDown(@"  ╔╗╔█╗╔╗", posBaldo, 8);
                 Thread.Sleep(baldoSpeed);
-                lock (lock_)
-                {
-                    SetCursorPosition(posBaldo, 7);
-                    Write(@"    (°W°)");
-                }
+                WriteDown(@"   (°W°)", posBaldo, 7);
                 Thread.Sleep(baldoSpeed);
             }
             lock (lock_)
@@ -105,23 +69,11 @@ namespace ConsoleAppCorsa
             int carloSpeed = 40;
             for (posCarlo = 0; posCarlo < 114; posCarlo++)
             {
-                lock (lock_)
-                {
-                    SetCursorPosition(posCarlo, 13);
-                    Write(@"  /\");
-                }
+                WriteDown(@"  /\", posCarlo, 13);
                 Thread.Sleep(carloSpeed);
-                lock (lock_)
-                {
-                    SetCursorPosition(posCarlo, 12);
-                    Write(@"  ┌■┐");
-                }
+                WriteDown(@"  ┌■┐", posCarlo, 12);
                 Thread.Sleep(carloSpeed);
-                lock (lock_)
-                {
-                    SetCursorPosition(posCarlo, 11);
-                    Write(@" (T-T)");
-                }
+                WriteDown(@" (T-T)", posCarlo, 11);
                 Thread.Sleep(carloSpeed);
             }
             lock (lock_)
@@ -131,12 +83,28 @@ namespace ConsoleAppCorsa
                 Write(classifica);
             }
         }
+        static void ThreadAliveStatus()
+        {
+        }
+        static void WriteDown(string exp, int posHorizontal, int posVertical)
+        {
+            lock (lock_)
+            {
+                SetCursorPosition(posHorizontal, posVertical);
+                Write(exp);
+            }
+        }
         static void Main(string[] args)
         {
             //SetCursorPosition(0, 24);
             //Write("Stato Main = Running");
             Title = "Frassineti Leonardo 4H 2023-09-28";
             CursorVisible = false;
+            SetCursorPosition(WindowWidth / 2 - 26, WindowHeight / 2);
+            Write("PREMERE UN QUALSIASI TASTO PER INIZIARE LA GARA");
+            ReadKey();
+            SetCursorPosition(WindowWidth / 2 - 26, WindowHeight / 2);
+            Write("                                               ");
             Pronti();
             //Andrea
             Thread thAndrea = new Thread(Andrea);
