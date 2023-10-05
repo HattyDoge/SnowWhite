@@ -10,6 +10,7 @@ namespace ConsoleAppCorsa
         static int posBaldo = 0;
         static int posCarlo = 0;
         static object lock_ = new object();
+        static int classifica = 0;
         static void Pronti()
         {
             SetCursorPosition(posAndrea, 2);
@@ -61,47 +62,79 @@ namespace ConsoleAppCorsa
                 }
                 Thread.Sleep(andreaSpeed);
             }
+            lock (lock_)
+            {
+                classifica++;
+                SetCursorPosition(115, 2);
+                Write(classifica);
+            }
         }
         static void Baldo()
         {
-            int baldoSpeed = 50;
+            int baldoSpeed = 40;
             for (posBaldo = 0; posBaldo < 114; posBaldo++)
             {
-                SetCursorPosition(posBaldo, 9);
-                Write(@"   ╚═╝║╚═╝");
+                lock (lock_)
+                {
+                    SetCursorPosition(posBaldo, 9);
+                    Write(@"   ╚═╝║╚═╝");
+                }
                 Thread.Sleep(baldoSpeed);
-                SetCursorPosition(posBaldo, 8);
-                Write(@"   ╔╗╔█╗╔╗");
+                lock (lock_)
+                {
+                    SetCursorPosition(posBaldo, 8);
+                    Write(@"   ╔╗╔█╗╔╗");
+                }
                 Thread.Sleep(baldoSpeed);
-                SetCursorPosition(posBaldo, 7);
-                Write(@"    (°W°)");
+                lock (lock_)
+                {
+                    SetCursorPosition(posBaldo, 7);
+                    Write(@"    (°W°)");
+                }
                 Thread.Sleep(baldoSpeed);
             }
-            SetCursorPosition(0, 23);
-            Write("Stato Baldo = Sleep");
-            Thread.Sleep(2000);
-
+            lock (lock_)
+            {
+                classifica++;
+                SetCursorPosition(115, 6);
+                Write(classifica);
+            }
         }
         static void Carlo()
         {
-            int carloSpeed = 30;
-            for (posCarlo = 0; posCarlo < WindowWidth - 1; posCarlo++)
+            int carloSpeed = 40;
+            for (posCarlo = 0; posCarlo < 114; posCarlo++)
             {
-                SetCursorPosition(posCarlo, 13);
-                Write(@"  /\");
+                lock (lock_)
+                {
+                    SetCursorPosition(posCarlo, 13);
+                    Write(@"  /\");
+                }
                 Thread.Sleep(carloSpeed);
-                SetCursorPosition(posCarlo, 12);
-                Write(@"  ┌■┐");
+                lock (lock_)
+                {
+                    SetCursorPosition(posCarlo, 12);
+                    Write(@"  ┌■┐");
+                }
                 Thread.Sleep(carloSpeed);
-                SetCursorPosition(posCarlo, 11);
-                Write(@" (T-T)");
+                lock (lock_)
+                {
+                    SetCursorPosition(posCarlo, 11);
+                    Write(@" (T-T)");
+                }
                 Thread.Sleep(carloSpeed);
+            }
+            lock (lock_)
+            {
+                classifica++;
+                SetCursorPosition(115, 10);
+                Write(classifica);
             }
         }
         static void Main(string[] args)
         {
-            SetCursorPosition(0, 24);
-            Write("Stato Main = Running");
+            //SetCursorPosition(0, 24);
+            //Write("Stato Main = Running");
             Title = "Frassineti Leonardo 4H 2023-09-28";
             CursorVisible = false;
             Pronti();
@@ -111,16 +144,15 @@ namespace ConsoleAppCorsa
             Thread thBaldo = new Thread(Baldo);
             //Carlo
             Thread thCarlo = new Thread(Carlo);
-            SetCursorPosition(0, 23);
-            Write("Stato Baldo = Unstarted  ");
-            Thread.Sleep(2000);
+            //SetCursorPosition(0, 23);
+            //Write("Stato Baldo = Unstarted  ");
+            //Thread.Sleep(2000);
 
             thBaldo.Start();
-
+            /*
             SetCursorPosition(0, 23);
             Write("Stato Baldo = Running   ");
-            Thread.Sleep(2000);
-
+            
             thBaldo.Suspend();
 
             SetCursorPosition(0, 23);
@@ -138,7 +170,7 @@ namespace ConsoleAppCorsa
             thBaldo.Join();
             Thread.Sleep(2000);
             SetCursorPosition(0, 24);
-            Write("Stato Main = Running    ");
+            Write("Stato Main = Running    ");*/
             /* Per fermare completamente il thread
             thBaldo.Abort();
 
@@ -150,7 +182,6 @@ namespace ConsoleAppCorsa
 
             thAndrea.Start();
           //thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
-            thBaldo.Join();
             thCarlo.Start();
 
             ReadLine();
