@@ -71,7 +71,7 @@ namespace ConsoleAppCorsa
         static void Carlo()
         {
             int carloSpeed = 30;
-            for (posCarlo = 0; posCarlo < WindowWidth-1; posCarlo++)
+            for (posCarlo = 0; posCarlo < WindowWidth - 1; posCarlo++)
             {
                 SetCursorPosition(posCarlo, 13);
                 Write(@"  /\");
@@ -124,8 +124,8 @@ namespace ConsoleAppCorsa
             Thread.Sleep(3000);
 
             thAndrea.Start();
-//          thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
-            thBaldo.Join(); 
+            //          thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
+            thBaldo.Join();
             thCarlo.Start();
 
             ReadLine();
