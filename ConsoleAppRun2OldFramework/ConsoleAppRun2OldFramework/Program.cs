@@ -11,6 +11,12 @@ namespace ConsoleAppCorsa
         static int posCarlo = 0;
         static object lock_ = new object();
         static int classifica = 0;
+        //Andrea
+        static Thread thAndrea;
+        //Baldo
+        static Thread thBaldo;
+        //Carlo
+        static Thread thCarlo;
         static void Pronti()
         {
             WriteDown("Andrea", posAndrea, 2);
@@ -83,8 +89,81 @@ namespace ConsoleAppCorsa
                 Write(classifica);
             }
         }
-        static void ThreadAliveStatus()
+        static void ThreadStatus()
         {
+            lock (lock_)
+            {
+                WriteDown($"{thAndrea.ThreadState}        ", 40, 2);
+                if (thAndrea.IsAlive)
+                    WriteDown("IsAlive == True ", 10, 2);
+                else
+                    WriteDown("IsAlive == False", 10, 2);
+
+                WriteDown($"{thBaldo.ThreadState}        ", 40, 6);
+                if (thBaldo.IsAlive)
+                    WriteDown("IsAlive == True ", 10, 6);
+                else
+                    WriteDown("IsAlive == False", 10, 6);
+
+                WriteDown($"{thCarlo.ThreadState}       ", 40, 10);
+                if (thCarlo.IsAlive)
+                    WriteDown("IsAlive == True ", 10, 10);
+                else
+                    WriteDown("IsAlive == False", 10, 10);
+            }
+        }
+        static Thread SelectRunner()
+        {
+            WriteDown("1) Andrea  ", 2, 16);
+            WriteDown("2) Baldo   ", 2, 17);
+            WriteDown("3) Carlo   ", 2, 18);
+            WriteDown("          ", 2, 19);
+
+            SetCursorPosition(3, 20);
+            char input = ReadKey().KeyChar;
+            switch (input)
+            {
+                case '1': // Andrea
+                    return thAndrea;
+
+                case '2': // Baldo
+                    return thBaldo;
+
+                case '3': // Carlo
+                    return thCarlo;
+
+                default: return null;
+            }
+        }
+        static void Control()
+        {
+
+            char input = ReadKey().KeyChar;
+            switch (input)
+            {
+                case '1': // Abort
+                    { 
+                       SelectRunner().Abort();
+                    } break;
+
+                case '2': // Suspend
+                    {
+                        SelectRunner().Suspend();
+                    }
+                    break;
+
+                case '3': // Resume
+                    {
+                        SelectRunner().Resume();
+                    }
+                    break;
+
+                case '4': // Join
+                    {
+                        SelectRunner().Join();
+                    }
+                    break;
+            }
         }
         static void WriteDown(string exp, int posHorizontal, int posVertical)
         {
@@ -106,17 +185,35 @@ namespace ConsoleAppCorsa
             SetCursorPosition(WindowWidth / 2 - 26, WindowHeight / 2);
             Write("                                               ");
             Pronti();
-            //Andrea
-            Thread thAndrea = new Thread(Andrea);
-            //Baldo
-            Thread thBaldo = new Thread(Baldo);
-            //Carlo
-            Thread thCarlo = new Thread(Carlo);
+            thAndrea = new Thread(Andrea);
+            thBaldo = new Thread(Baldo);
+            thCarlo = new Thread(Carlo);
+            ThreadStatus();
+
             //SetCursorPosition(0, 23);
             //Write("Stato Baldo = Unstarted  ");
             //Thread.Sleep(2000);
 
             thBaldo.Start();
+            thAndrea.Start();
+            thCarlo.Start();
+
+            do
+            {
+                WriteDown("Menu", 2, 15);
+                WriteDown("1) Abort   ", 2, 16);
+                WriteDown("2) Suspend ", 2, 17);
+                WriteDown("3) Resume  ", 2, 18);
+                WriteDown("4) Join    ", 2, 19);
+                ThreadStatus();
+                if (KeyAvailable) 
+                {
+                    SetCursorPosition(3, 20);
+                    Control();
+                }
+            }
+            while (thAndrea.IsAlive || thBaldo.IsAlive || thCarlo.IsAlive);
+            
             /*
             SetCursorPosition(0, 23);
             Write("Stato Baldo = Running   ");
@@ -146,11 +243,8 @@ namespace ConsoleAppCorsa
             Write("Stato Baldo = Stopped");
             Thread.Sleep(2000);
             */
-
-
-            thAndrea.Start();
           //thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
-            thCarlo.Start();
+
 
             ReadLine();
         }
