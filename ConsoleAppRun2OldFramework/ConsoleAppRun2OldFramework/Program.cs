@@ -11,6 +11,7 @@ namespace ConsoleAppCorsa
         static int posCarlo = 0;
         static object lock_ = new object();
         static int classifica = 0;
+        static string command = "";
         //Andrea
         static Thread thAndrea;
         //Baldo
@@ -37,6 +38,14 @@ namespace ConsoleAppCorsa
             int andreaSpeed = 40;
             for (posAndrea = 0; posAndrea < 114; posAndrea++)
             {
+                if (command.Length == 2)
+                {
+                    if (command[0] == 'A')
+                        if (command[1] == 'B')
+                            thBaldo.Join();
+                        else if (command[1] == 'C')
+                            thCarlo.Join();
+                }
                 WriteDown(@"   ┘└", posAndrea, 5);
                 Thread.Sleep(andreaSpeed);
                 WriteDown(@"   /▓\", posAndrea, 4);
@@ -56,6 +65,14 @@ namespace ConsoleAppCorsa
             int baldoSpeed = 40;
             for (posBaldo = 0; posBaldo < 114; posBaldo++)
             {
+                if (command.Length == 2)
+                {
+                    if (command[0] == 'B')
+                        if (command[1] == 'A')
+                            thAndrea.Join();
+                        else if (command[1] == 'C')
+                            thCarlo.Join();
+                }
                 WriteDown(@"  ╚═╝║╚═╝",posBaldo, 9);
                 Thread.Sleep(baldoSpeed);
                 WriteDown(@"  ╔╗╔█╗╔╗", posBaldo, 8);
@@ -75,6 +92,14 @@ namespace ConsoleAppCorsa
             int carloSpeed = 40;
             for (posCarlo = 0; posCarlo < 114; posCarlo++)
             {
+                if (command.Length == 2)
+                {
+                    if (command[0] == 'C')
+                        if (command[1] == 'A')
+                            thAndrea.Join();
+                        else if (command[1] == 'B')
+                            thBaldo.Join();
+                }
                 WriteDown(@"  /\", posCarlo, 13);
                 Thread.Sleep(carloSpeed);
                 WriteDown(@"  ┌■┐", posCarlo, 12);
@@ -114,22 +139,21 @@ namespace ConsoleAppCorsa
         }
         static Thread SelectRunner()
         {
-            WriteDown("1) Andrea  ", 2, 16);
-            WriteDown("2) Baldo   ", 2, 17);
-            WriteDown("3) Carlo   ", 2, 18);
-            WriteDown("          ", 2, 19);
-
+            WriteDown("a) Andrea  ", 2, 16);
+            WriteDown("b) Baldo   ", 2, 17);
+            WriteDown("c) Carlo   ", 2, 18);
+            WriteDown("           ", 2, 19);
             SetCursorPosition(3, 20);
             char input = ReadKey().KeyChar;
             switch (input)
             {
-                case '1': // Andrea
+                case 'a': // Andrea
                     return thAndrea;
 
-                case '2': // Baldo
+                case 'b': // Baldo
                     return thBaldo;
 
-                case '3': // Carlo
+                case 'c': // Carlo
                     return thCarlo;
 
                 default: return null;
@@ -141,26 +165,43 @@ namespace ConsoleAppCorsa
             char input = ReadKey().KeyChar;
             switch (input)
             {
-                case '1': // Abort
+                case 'a': // Abort
                     { 
-                       SelectRunner().Abort();
+                        SelectRunner().Abort();
                     } break;
 
-                case '2': // Suspend
+                case 's': // Suspend
                     {
-                        SelectRunner().Suspend();
+                        var runner = SelectRunner();
+                        if (runner.ThreadState != ThreadState.Suspended && runner.IsAlive)
+                            runner.Suspend();
                     }
                     break;
 
-                case '3': // Resume
+                case 'r': // Resume
                     {
-                        SelectRunner().Resume();
+                        var runner = SelectRunner();
+                        if (runner.ThreadState == ThreadState.Suspended && runner.IsAlive)
+                            runner.Resume();
                     }
                     break;
 
-                case '4': // Join
+                case 'j': // Join
                     {
-                        SelectRunner().Join();
+                        var runner = SelectRunner();
+                        if (runner == thAndrea)
+                            command = "A";
+                        else if (runner == thBaldo)
+                            command = "B";
+                        else
+                            command = "C";
+                        runner = SelectRunner();
+                        if (runner == thAndrea)
+                            command += "A";
+                        else if (runner == thBaldo)
+                            command += "B";
+                        else
+                            command += "C";
                     }
                     break;
             }
@@ -201,10 +242,10 @@ namespace ConsoleAppCorsa
             do
             {
                 WriteDown("Menu", 2, 15);
-                WriteDown("1) Abort   ", 2, 16);
-                WriteDown("2) Suspend ", 2, 17);
-                WriteDown("3) Resume  ", 2, 18);
-                WriteDown("4) Join    ", 2, 19);
+                WriteDown("a) Abort   ", 2, 16);
+                WriteDown("s) Suspend ", 2, 17);
+                WriteDown("r) Resume  ", 2, 18);
+                WriteDown("j) Join    ", 2, 19);
                 ThreadStatus();
                 if (KeyAvailable) 
                 {
@@ -213,7 +254,7 @@ namespace ConsoleAppCorsa
                 }
             }
             while (thAndrea.IsAlive || thBaldo.IsAlive || thCarlo.IsAlive);
-            
+
             /*
             SetCursorPosition(0, 23);
             Write("Stato Baldo = Running   ");
@@ -243,9 +284,11 @@ namespace ConsoleAppCorsa
             Write("Stato Baldo = Stopped");
             Thread.Sleep(2000);
             */
-          //thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
-
-
+            //thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
+            for (int i = 0; i < WindowHeight; i++)
+                WriteDown("                                                                                                                                                       ", 1, i);
+            SetCursorPosition(WindowWidth / 2 - 11, WindowHeight / 2);
+            Write("GARA FINITA");
             ReadLine();
         }
     }
