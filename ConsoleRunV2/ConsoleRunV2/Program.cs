@@ -18,6 +18,24 @@ namespace ConsoleAppCorsa
         static Thread thBaldo;
         //Carlo
         static Thread thCarlo;
+        class DataRunner
+        {
+            int rowPos;
+            string legs;
+            string torso;
+            string head;
+            public DataRunner ( int pos, string legs, string torso, string head) 
+            {
+                this.rowPos = pos; // posizione testa
+                this.legs = legs;
+                this.torso = torso;
+                this.head = head;
+            }
+            public int RowPos { get { return rowPos; } set { rowPos = value; } }
+            public string Legs { get { return legs; } }
+            public string Torso { get { return torso; } }
+            public string Head { get { return head; } }
+        }
         static void Pronti()
         {
             WriteDown("Andrea", posAndrea, 2);
@@ -32,6 +50,34 @@ namespace ConsoleAppCorsa
             WriteDown(@" (T-T)", posCarlo, 11);
             WriteDown(@"  ┌■┐", posCarlo, 12);
             WriteDown(@"  /\", posCarlo, 13);
+        }
+        static void Runner(object obj)
+        {
+            DataRunner data = (DataRunner)obj; 
+            int speed = 40;
+            for (int pos = 0; pos < 114; pos++)
+            {
+                if (command.Length == 2)
+                {
+                    if (command[0] == 'A')
+                        if (command[1] == 'B')
+                            thBaldo.Join();
+                        else if (command[1] == 'C')
+                            thCarlo.Join();
+                }
+                WriteDown(data.Legs, pos, data.RowPos + 2);
+                Thread.Sleep(speed);
+                WriteDown(@"   /▓\", pos, data.RowPos + 1);
+                Thread.Sleep(speed);
+                WriteDown(@" (- L -)", pos, data.RowPos);
+                Thread.Sleep(speed);
+            }
+            lock (lock_)
+            {
+                classifica++;
+                SetCursorPosition(115, 2);
+                Write(classifica);
+            }
         }
         static void Andrea()
         {
@@ -231,9 +277,12 @@ namespace ConsoleAppCorsa
             SetCursorPosition(WindowWidth / 2 - 26, WindowHeight / 2);
             Write("                                               ");
             Pronti();
-            thAndrea = new Thread(Andrea);
-            thBaldo = new Thread(Baldo);
-            thCarlo = new Thread(Carlo);
+            thAndrea = new Thread(Runner);
+            thAndrea.Name = "Andrea";
+            thBaldo = new Thread(Runner);
+            thBaldo.Name = "Baldo";
+            thCarlo = new Thread(Runner);
+            thCarlo.Name = "Carlo";
             ThreadStatus();
 
             //SetCursorPosition(0, 23);

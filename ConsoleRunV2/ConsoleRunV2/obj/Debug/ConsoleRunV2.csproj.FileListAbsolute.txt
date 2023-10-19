@@ -1,0 +1,8 @@
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\bin\Debug\ConsoleRunV2.exe.config
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\bin\Debug\ConsoleRunV2.exe
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\bin\Debug\ConsoleRunV2.pdb
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\obj\Debug\ConsoleRunV2.csproj.AssemblyReference.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\obj\Debug\ConsoleRunV2.csproj.SuggestedBindingRedirects.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\obj\Debug\ConsoleRunV2.csproj.CoreCompileInputs.cache
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\obj\Debug\ConsoleRunV2.exe
+C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleRunV2\ConsoleRunV2\obj\Debug\ConsoleRunV2.pdb
