@@ -285,6 +285,7 @@ namespace ConsoleAppCorsa
             Thread.Sleep(2000);
             */
             //thAndrea.Join(); serve per far aspettare la prossima istruzione che il thread thAndrea finisca l'esecuzione
+            Thread.Sleep(2000);
             for (int i = 0; i < WindowHeight; i++)
                 WriteDown("                                                                                                                                                       ", 1, i);
             SetCursorPosition(WindowWidth / 2 - 11, WindowHeight / 2);
