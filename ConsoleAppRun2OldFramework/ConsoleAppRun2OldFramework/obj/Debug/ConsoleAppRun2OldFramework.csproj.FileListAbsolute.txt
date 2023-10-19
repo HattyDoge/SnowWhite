@@ -1,8 +1,0 @@
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\bin\Debug\ConsoleAppRun2OldFramework.exe.config
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\bin\Debug\ConsoleAppRun2OldFramework.exe
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\bin\Debug\ConsoleAppRun2OldFramework.pdb
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\obj\Debug\ConsoleAppRun2OldFramework.csproj.AssemblyReference.cache
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\obj\Debug\ConsoleAppRun2OldFramework.csproj.SuggestedBindingRedirects.cache
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\obj\Debug\ConsoleAppRun2OldFramework.csproj.CoreCompileInputs.cache
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\obj\Debug\ConsoleAppRun2OldFramework.exe
-C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun2OldFramework\ConsoleAppRun2OldFramework\obj\Debug\ConsoleAppRun2OldFramework.pdb
