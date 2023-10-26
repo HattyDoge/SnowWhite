@@ -85,7 +85,7 @@ namespace ConsoleAppCorsa
             lock (lock_)
             {
                 classifica++;
-                SetCursorPosition(115, 2);
+                SetCursorPosition(115, data.RowPos - 1);
                 Write(classifica);
             }
         }
