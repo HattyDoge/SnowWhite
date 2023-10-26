@@ -59,17 +59,27 @@ namespace ConsoleAppCorsa
             {
                 if (command.Length == 2)
                 {
-                    if (command[0] == 'A')
+                    if (command[0] == 'A' && Thread.CurrentThread.Name == "Andrea")
                         if (command[1] == 'B')
                             thBaldo.Join();
                         else if (command[1] == 'C')
                             thCarlo.Join();
+                    if (command[0] == 'B' && Thread.CurrentThread.Name == "Baldo")
+                        if (command[1] == 'A')
+                            thAndrea.Join();
+                        else if (command[1] == 'C')
+                            thCarlo.Join();
+                    if (command[0] == 'C' && Thread.CurrentThread.Name == "Carlo")
+                        if (command[1] == 'A')
+                            thAndrea.Join();
+                        else if (command[1] == 'B')
+                            thBaldo.Join();
                 }
                 WriteDown(data.Legs, pos, data.RowPos + 2);
                 Thread.Sleep(speed);
-                WriteDown(@"   /▓\", pos, data.RowPos + 1);
+                WriteDown(data.Torso, pos, data.RowPos + 1);
                 Thread.Sleep(speed);
-                WriteDown(@" (- L -)", pos, data.RowPos);
+                WriteDown(data.Head, pos, data.RowPos);
                 Thread.Sleep(speed);
             }
             lock (lock_)
@@ -79,7 +89,7 @@ namespace ConsoleAppCorsa
                 Write(classifica);
             }
         }
-        static void Andrea()
+/*      static void Andrea()
         {
             int andreaSpeed = 40;
             for (posAndrea = 0; posAndrea < 114; posAndrea++)
@@ -121,7 +131,7 @@ namespace ConsoleAppCorsa
                 }
                 WriteDown(@" ╚═╝║╚═╝", posBaldo, 9);
                 Thread.Sleep(baldoSpeed);
-                WriteDown(@" ╔╗╔█╗╔╗", posBaldo, 8);
+                WriteDown(" ╔╗╔█╗╔╗", posBaldo, 8);
                 Thread.Sleep(baldoSpeed);
                 WriteDown(@"  (°W°)", posBaldo, 7);
                 Thread.Sleep(baldoSpeed);
@@ -150,7 +160,7 @@ namespace ConsoleAppCorsa
                 Thread.Sleep(carloSpeed);
                 WriteDown(@"  ┌■┐", posCarlo, 12);
                 Thread.Sleep(carloSpeed);
-                WriteDown(@" (T-T)", posCarlo, 11);
+                WriteDown(" (T-T)", posCarlo, 11);
                 Thread.Sleep(carloSpeed);
             }
             lock (lock_)
@@ -159,7 +169,7 @@ namespace ConsoleAppCorsa
                 SetCursorPosition(115, 10);
                 Write(classifica);
             }
-        }
+        } */
         static void ThreadStatus()
         {
             lock (lock_)
@@ -284,14 +294,16 @@ namespace ConsoleAppCorsa
             thCarlo = new Thread(Runner);
             thCarlo.Name = "Carlo";
             ThreadStatus();
-
+            DataRunner andreaData = new DataRunner(3, @"   ┘└", @"   /▓\", @" (- L -)");
+            DataRunner baldoData = new DataRunner(7, @" ╚═╝║╚═╝", @" ╔╗╔█╗╔╗", @"  (°W°)");
+            DataRunner carloData = new DataRunner(11, @"  /\", @"  ┌■┐", @" (T-T)");
             //SetCursorPosition(0, 23);
             //Write("Stato Baldo = Unstarted  ");
             //Thread.Sleep(2000);
 
-            thBaldo.Start();
-            thAndrea.Start();
-            thCarlo.Start();
+            thBaldo.Start(baldoData);
+            thAndrea.Start(andreaData);
+            thCarlo.Start(carloData);
 
             do
             {
