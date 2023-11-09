@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-11-09T09:41:03.623Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="ec8IpNP4KWFFb7ysOocM" version="22.1.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-09T09:42:16.598Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="WTk9Zd5vi_fdBrosVHxK" version="22.1.0" type="github">
   <diagram name="Pagina-1" id="BKnzwn9NXwhrLQK4fKwZ">
-    <mxGraphModel dx="1816" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2261" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -57,11 +57,15 @@
             <mxPoint x="-210" y="230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-48" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-47">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="NyMNK-WrugunHCWwzILc-48" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-47" target="NyMNK-WrugunHCWwzILc-28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-160" y="600" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-49" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-36">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="NyMNK-WrugunHCWwzILc-49" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-36" target="NyMNK-WrugunHCWwzILc-28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-110" y="390" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="NyMNK-WrugunHCWwzILc-28" value="Personale Hotel" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
           <mxGeometry x="-190" y="420" width="30" height="60" as="geometry" />
