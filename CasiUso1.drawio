@@ -1,148 +1,151 @@
-<mxfile host="app.diagrams.net" modified="2023-11-09T09:47:15.682Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="ShQ89XEoKNHHccD-5Unu" version="22.1.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-10T08:13:25.760Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="iC7YKxalzob2uRCRyEbG" version="22.1.0" type="github">
   <diagram name="Pagina-1" id="BKnzwn9NXwhrLQK4fKwZ">
     <mxGraphModel dx="2261" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="NyMNK-WrugunHCWwzILc-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-3" target="NyMNK-WrugunHCWwzILc-7">
+        <mxCell id="NyMNK-WrugunHCWwzILc-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-3" target="NyMNK-WrugunHCWwzILc-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-3" target="NyMNK-WrugunHCWwzILc-13">
+        <mxCell id="NyMNK-WrugunHCWwzILc-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-3" target="NyMNK-WrugunHCWwzILc-13" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-650" y="260" as="targetPoint" />
             <mxPoint x="-750" y="310" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-14" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-3" target="NyMNK-WrugunHCWwzILc-38">
+        <mxCell id="NyMNK-WrugunHCWwzILc-14" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-3" target="NyMNK-WrugunHCWwzILc-38" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-630" y="220" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-3" value="Utente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-3" value="Utente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
           <mxGeometry x="-780" y="290" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-7" value="Prenotare" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-7" value="Prenotare" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-640" y="410" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-11" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-7" target="NyMNK-WrugunHCWwzILc-47">
+        <mxCell id="NyMNK-WrugunHCWwzILc-11" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-7" target="NyMNK-WrugunHCWwzILc-47" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-540.0000000000005" y="510.34000000000003" as="sourcePoint" />
             <mxPoint x="-370" y="470" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-13" value="Verifica disponibilità delle camere" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-13" value="Verifica disponibilità delle camere" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-790" y="470" width="150" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-29" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-15" target="NyMNK-WrugunHCWwzILc-28">
+        <mxCell id="NyMNK-WrugunHCWwzILc-29" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-15" target="NyMNK-WrugunHCWwzILc-28" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-15" value="Gestire Prenotazioni" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-15" value="Gestire Prenotazioni" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-570" y="160" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-19" value="Check-In" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-19" value="Check-In" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-570" y="330" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-20" value="Check-Out" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-20" value="Check-Out" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-570" y="250" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-21" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-36" target="NyMNK-WrugunHCWwzILc-15">
+        <mxCell id="NyMNK-WrugunHCWwzILc-21" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-36" target="NyMNK-WrugunHCWwzILc-15" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-340" y="295" as="sourcePoint" />
             <mxPoint x="-240.00000000000364" y="285" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-26" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-15" target="NyMNK-WrugunHCWwzILc-35">
+        <mxCell id="NyMNK-WrugunHCWwzILc-26" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="NyMNK-WrugunHCWwzILc-15" target="NyMNK-WrugunHCWwzILc-35" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-370.00000000000045" y="230.34" as="sourcePoint" />
             <mxPoint x="-210" y="230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-48" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-47" target="NyMNK-WrugunHCWwzILc-28">
+        <mxCell id="NyMNK-WrugunHCWwzILc-48" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-47" target="NyMNK-WrugunHCWwzILc-28" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-160" y="600" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-49" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-36" target="NyMNK-WrugunHCWwzILc-28">
+        <mxCell id="NyMNK-WrugunHCWwzILc-49" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-36" target="NyMNK-WrugunHCWwzILc-28" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-110" y="390" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-50" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-51">
+        <mxCell id="NyMNK-WrugunHCWwzILc-50" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-51" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-60" y="380" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-53" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-52">
+        <mxCell id="NyMNK-WrugunHCWwzILc-53" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-52" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-55" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-54">
+        <mxCell id="NyMNK-WrugunHCWwzILc-55" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-28" target="NyMNK-WrugunHCWwzILc-54" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-28" value="Personale Hotel" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-28" value="Personale Hotel" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
           <mxGeometry x="-310" y="390" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-30" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-7" target="NyMNK-WrugunHCWwzILc-31">
+        <mxCell id="NyMNK-WrugunHCWwzILc-30" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-7" target="NyMNK-WrugunHCWwzILc-31" edge="1">
           <mxGeometry x="-0.0026" width="160" relative="1" as="geometry">
             <mxPoint x="-545" y="500" as="sourcePoint" />
             <mxPoint x="-375.00000000000364" y="575" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-31" value="Scegli data di check-in e data di check-out e il tipo di camera desiderato" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-31" value="Scegli data di check-in e data di check-out e il tipo di camera desiderato" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-660" y="630" width="210" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-32" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-19" target="NyMNK-WrugunHCWwzILc-28">
+        <mxCell id="NyMNK-WrugunHCWwzILc-32" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-19" target="NyMNK-WrugunHCWwzILc-28" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-33" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-20" target="NyMNK-WrugunHCWwzILc-28">
+        <mxCell id="NyMNK-WrugunHCWwzILc-33" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="NyMNK-WrugunHCWwzILc-20" target="NyMNK-WrugunHCWwzILc-28" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-300" y="440" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-35" value="Visualizzare le prenotazioni" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-35" value="Visualizzare le prenotazioni" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-210" y="190" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-36" value="Cancella prenotazione" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-36" value="Cancella prenotazione" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-250" y="260" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-37" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-13" target="NyMNK-WrugunHCWwzILc-31">
+        <mxCell id="NyMNK-WrugunHCWwzILc-37" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-13" target="NyMNK-WrugunHCWwzILc-31" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-410" y="120.34" as="sourcePoint" />
             <mxPoint x="-250" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-38" value="Login" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-38" value="Login" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-820" y="150" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-42" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-15" target="NyMNK-WrugunHCWwzILc-38">
+        <mxCell id="NyMNK-WrugunHCWwzILc-42" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-15" target="NyMNK-WrugunHCWwzILc-38" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-508" y="122" as="sourcePoint" />
             <mxPoint x="-710" y="60" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-43" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-20" target="NyMNK-WrugunHCWwzILc-38">
+        <mxCell id="NyMNK-WrugunHCWwzILc-43" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-20" target="NyMNK-WrugunHCWwzILc-38" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-558" y="132" as="sourcePoint" />
             <mxPoint x="-760" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-45" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="NyMNK-WrugunHCWwzILc-19" target="NyMNK-WrugunHCWwzILc-38">
+        <mxCell id="NyMNK-WrugunHCWwzILc-45" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" parent="1" source="NyMNK-WrugunHCWwzILc-19" target="NyMNK-WrugunHCWwzILc-38" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-209" y="306" as="sourcePoint" />
             <mxPoint x="-411" y="244" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-47" value="Invia email di conferma di prenotazione" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-47" value="Invia email di conferma di prenotazione" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-413" y="550" width="183" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-51" value="Aggiungere camere" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-51" value="Aggiungere camere" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-150" y="320" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-52" value="Rimuovere camere" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-52" value="Rimuovere camere" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-150" y="420" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="NyMNK-WrugunHCWwzILc-54" value="Cambiare tariffe" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="NyMNK-WrugunHCWwzILc-54" value="Cambiare tariffe" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-150" y="550" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="O_VZEHNc6gCMoqH5X8NL-1" value="Amministratori" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-240" y="720" width="30" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
