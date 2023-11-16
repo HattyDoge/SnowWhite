@@ -1,26 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2023-11-16T09:36:13.401Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="Z7BMvcNmlro5FDcGtAtP" version="22.1.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-16T09:51:52.087Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="9fK8eVsQlhxyNVyr3ZEt" version="22.1.2" type="github">
   <diagram name="Pagina-1" id="OL6ZDqpwB00pBAxmsU1Q">
-    <mxGraphModel dx="1434" dy="782" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="447" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="HF-LxzAFCWYtsDe55L92-1" value="Cliente" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="20" height="580" as="geometry" />
+          <mxGeometry x="40" y="40" width="20" height="614" as="geometry" />
         </mxCell>
         <mxCell id="HF-LxzAFCWYtsDe55L92-15" value="&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-1">
-          <mxGeometry x="5" y="90" width="10" height="430" as="geometry" />
-        </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-25" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-1">
-          <mxGeometry x="5" y="530" width="10" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-26" value="Raccoglie il denaro e la carta" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="HF-LxzAFCWYtsDe55L92-25" parent="HF-LxzAFCWYtsDe55L92-1" source="HF-LxzAFCWYtsDe55L92-15">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="30" y="460" as="sourcePoint" />
-            <Array as="points">
-              <mxPoint x="40" y="500" />
-              <mxPoint x="40" y="550" />
-            </Array>
-          </mxGeometry>
+          <mxGeometry x="5" y="90" width="10" height="459" as="geometry" />
         </mxCell>
         <mxCell id="HF-LxzAFCWYtsDe55L92-2" value="ATM" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
           <mxGeometry x="240" y="40" width="100" height="580" as="geometry" />
@@ -35,27 +23,30 @@
           <mxGeometry x="45" y="310" width="10" height="80" as="geometry" />
         </mxCell>
         <mxCell id="HF-LxzAFCWYtsDe55L92-22" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-2">
-          <mxGeometry x="45" y="410" width="10" height="80" as="geometry" />
+          <mxGeometry x="45" y="410" width="10" height="125" as="geometry" />
         </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-13" value="Inserisci carta" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-12" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
+        <mxCell id="HF-LxzAFCWYtsDe55L92-13" value="Inserimento carta" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-12" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="225" y="135" as="sourcePoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-14" value="Inserire PIN" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="HF-LxzAFCWYtsDe55L92-12" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
+        <mxCell id="HF-LxzAFCWYtsDe55L92-14" value="Richiesta inserimento PIN" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="HF-LxzAFCWYtsDe55L92-12" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="225" y="205" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-17" value="Inserisci PIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-16" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="HF-LxzAFCWYtsDe55L92-17" value="Inserimento PIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-16" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry x="-0.0012" relative="1" as="geometry">
             <mxPoint x="160" y="230" as="sourcePoint" />
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-18" value="Selezionare servizi" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" edge="1" source="HF-LxzAFCWYtsDe55L92-16" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
+        <mxCell id="HF-LxzAFCWYtsDe55L92-18" value="Conferma autenticazione" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="160" y="320" as="targetPoint" />
+            <mxPoint x="54" y="279" as="targetPoint" />
+            <mxPoint x="284" y="279" as="sourcePoint" />
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="HF-LxzAFCWYtsDe55L92-20" value="Prelievo di denaro" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-19" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
@@ -69,15 +60,36 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-23" value="Inserisci l&#39;importo" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-22" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="HF-LxzAFCWYtsDe55L92-23" value="Inserimento importo" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-22" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry x="-0.0012" relative="1" as="geometry">
             <mxPoint x="225" y="455" as="sourcePoint" />
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HF-LxzAFCWYtsDe55L92-24" value="Eroga il denaro ed espelle la carta&lt;br&gt;dopo aver visualizzato la conferma" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="HF-LxzAFCWYtsDe55L92-22" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
+        <mxCell id="HF-LxzAFCWYtsDe55L92-24" value="Eroga il denaro ed espelle la carta" style="html=1;verticalAlign=bottom;endArrow=block;endSize=8;curved=0;rounded=0;exitX=-0.114;exitY=0.614;exitDx=0;exitDy=0;endFill=1;exitPerimeter=0;" edge="1" source="HF-LxzAFCWYtsDe55L92-22" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
           <mxGeometry x="0.0028" relative="1" as="geometry">
-            <mxPoint x="225" y="525" as="targetPoint" />
+            <mxPoint x="56" y="527" as="targetPoint" />
+            <mxPoint x="286" y="527" as="sourcePoint" />
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-29" value="Richiesta selezione servizio" style="html=1;verticalAlign=bottom;endArrow=open;curved=0;rounded=0;exitX=-0.057;exitY=0.884;exitDx=0;exitDy=0;exitPerimeter=0;endFill=0;" edge="1" parent="1" source="HF-LxzAFCWYtsDe55L92-16" target="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="238" y="300" as="sourcePoint" />
+            <mxPoint x="295" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-30" value="Visualizza la conferma" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;endFill=0;" edge="1" parent="1">
+          <mxGeometry x="0.0028" relative="1" as="geometry">
+            <mxPoint x="55" y="496" as="targetPoint" />
+            <mxPoint x="285" y="496" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-31" value="Raccolta denaro e carta" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=-5;entryPerimeter=0;" edge="1" parent="1" source="HF-LxzAFCWYtsDe55L92-15" target="HF-LxzAFCWYtsDe55L92-22">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="51" y="543" as="sourcePoint" />
+            <mxPoint x="215" y="547" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
