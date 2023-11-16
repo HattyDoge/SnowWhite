@@ -1,9 +1,58 @@
-<mxfile host="app.diagrams.net" modified="2023-11-16T08:18:28.552Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" version="22.1.2" etag="0jYxOqZ2ScD5iCo8P4U2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-16T09:10:02.588Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="BRcMbuRVZADpHJNMXKfC" version="22.1.2" type="github">
   <diagram name="Pagina-1" id="OL6ZDqpwB00pBAxmsU1Q">
-    <mxGraphModel>
+    <mxGraphModel dx="683" dy="372" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="HF-LxzAFCWYtsDe55L92-1" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="1">
+          <mxGeometry x="110" y="40" width="20" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-1">
+          <mxGeometry x="5" y="90" width="10" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-2" value="ATM" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="250" y="40" width="100" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-12" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-2">
+          <mxGeometry x="45" y="90" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-16" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-2">
+          <mxGeometry x="45" y="200" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-19" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="HF-LxzAFCWYtsDe55L92-2">
+          <mxGeometry x="45" y="310" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-13" value="Inserisci carta" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;exitX=1;exitY=0;exitDx=0;exitDy=5;exitPerimeter=0;" edge="1" target="HF-LxzAFCWYtsDe55L92-12" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="225" y="135" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-14" value="Inserire PIN" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="HF-LxzAFCWYtsDe55L92-12" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="225" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-17" value="Inserisci PIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-16" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="230" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-18" value="Selezionare servizi" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" edge="1" source="HF-LxzAFCWYtsDe55L92-16" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-20" value="dispatch" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="HF-LxzAFCWYtsDe55L92-19" parent="1" source="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="225" y="355" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HF-LxzAFCWYtsDe55L92-21" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="HF-LxzAFCWYtsDe55L92-19" parent="1" target="HF-LxzAFCWYtsDe55L92-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="225" y="425" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
