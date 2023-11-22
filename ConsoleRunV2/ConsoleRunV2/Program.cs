@@ -223,7 +223,11 @@ namespace ConsoleAppCorsa
             {
                 case 'a': // Abort
                     {
-                        SelectRunner()?.Abort();
+                        var runner = SelectRunner();
+						if (runner == null)
+							break;
+						if (runner.ThreadState != ThreadState.Suspended && runner.IsAlive)
+							runner.Abort();
                     }
                     break;
 

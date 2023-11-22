@@ -6,3 +6,10 @@ C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleApp
 C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.csproj.CoreCompileInputs.cache
 C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.exe
 C:\Users\leonardo.frassineti\Documents\GitHub\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.pdb
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\ConsoleAppRun.exe.config
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\ConsoleAppRun.exe
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\bin\Debug\ConsoleAppRun.pdb
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.csproj.AssemblyReference.cache
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.csproj.CoreCompileInputs.cache
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.exe
+F:\File foto e video\Github\SnowWhite\ConsoleAppRun\ConsoleAppRun\obj\Debug\ConsoleAppRun.pdb
