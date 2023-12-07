@@ -41,6 +41,10 @@ namespace ConsoleAppServer
                     //Program is suspended while waiting for an incoming connection.
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
