@@ -45,7 +45,7 @@ namespace ConsoleAppServer
                     //Program is suspended while waiting for an incoming connection.
                     Socket handler = listener.Accept();
                     string strMsg = null;
-
+                    Console.WriteLine("Socket connected to {0}", handler.RemoteEndPoint.ToString());
                     //An incoming connection needs to be processed
                     do
                     {
