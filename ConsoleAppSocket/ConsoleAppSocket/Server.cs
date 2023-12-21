@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Frassineti Leonardo
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -17,15 +18,15 @@ namespace ConsoleAppServer
             Console.WriteLine("\nProgramma Server\n");
             //Establish the local endpoint for the socket
             //Dns.GetHostName returns the name of the host running the application
-        #if false
+#if false
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[1];
-        #elif false
+#elif true
             IPAddress ipAddress = IPAddress.Any;//Fornisce un indirizzo IP che indica che il server deve attendere 
                                                 //l'attività dei client su tutte le interfacce di rete. Questo campo è di sola lettura
-        #else
+#else
             IPAddress ipAddress = IPAddress.Parse("10.1.0.8");
-        #endif
+#endif
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
             //Create a TCP/IP socket
             Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -38,30 +39,38 @@ namespace ConsoleAppServer
                 listener.Listen(1);
 
                 //Start listening for connections
-                while(true)
+                while (true)
                 {
                     Console.WriteLine("Waiting for connection...");
                     //Program is suspended while waiting for an incoming connection.
                     Socket handler = listener.Accept();
-                    data = null;
+                    string strMsg = null;
 
                     //An incoming connection needs to be processed
                     do
                     {
-                        //Receive data from client
-                        int bytesRec = handler.Receive(bytes);
-                        //Transforms data
-                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                        //Receives until final instruction marked with <EOF>
-                    } while (data.IndexOf("<EOF>") <= -1);
+                        data = null;
+                        do
+                        {
+                            //Receive data from client
+                            int bytesRec = handler.Receive(bytes);
+                            //Transforms data
+                            data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            //Receives until final instruction marked with <EOF>
 
-                    //Show the data on the console.
-                    Console.WriteLine("Text received : {0}", data);
+                        } while (data.IndexOf("<EOF>") <= -1);
+                        data = data.Remove(data.IndexOf("<EOF>"), 5);
+                        //Show the data on the console.
+                        Console.WriteLine("Text received : {0}", data);
 
-                    #region Echo the data back to the client.
-                    byte[] msg = Encoding.ASCII.GetBytes(data);
+                        #region Echo the data back to the client.
+                        Console.Write("Text to send : ");
+                        strMsg = Console.ReadLine();
+                        byte[] msg = Encoding.ASCII.GetBytes(strMsg + "<EOF>");
+                        
+                        handler.Send(msg);
+                    } while (!(strMsg == "ciao" && data == "ciao") && handler.Connected);
 
-                    handler.Send(msg);
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
                     #endregion
