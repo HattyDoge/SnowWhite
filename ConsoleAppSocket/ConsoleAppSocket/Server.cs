@@ -1,4 +1,4 @@
-﻿//Frassineti Leonardo
+﻿//Frassineti Leonardo 4H
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -15,13 +15,13 @@ namespace ConsoleAppServer
             //Array of bytes
             byte[] bytes = new byte[1024];
 
-            Console.WriteLine("\nProgramma Server\n");
+            Console.WriteLine("\nProgramma Server Frassineti Leonardo\n");
             //Establish the local endpoint for the socket
             //Dns.GetHostName returns the name of the host running the application
 #if false
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[1];
-#elif true
+#elif false
             IPAddress ipAddress = IPAddress.Any;//Fornisce un indirizzo IP che indica che il server deve attendere 
                                                 //l'attività dei client su tutte le interfacce di rete. Questo campo è di sola lettura
 #else
@@ -63,23 +63,29 @@ namespace ConsoleAppServer
                         //Show the data on the console.
                         Console.WriteLine("Text received : {0}", data);
 
+                        //Checks if both messages are "ciao" and if the connection is still on if so it closes the connection
+                        if (strMsg == "ciao" && data == "ciao")
+                            break;
+
                         #region Echo the data back to the client.
                         Console.Write("Text to send : ");
                         strMsg = Console.ReadLine();
                         byte[] msg = Encoding.ASCII.GetBytes(strMsg + "<EOF>");
                         
                         handler.Send(msg);
+                        #endregion
                     } while (!(strMsg == "ciao" && data == "ciao") && handler.Connected);
-
+                    //Close connection
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
-                    #endregion
+                    
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+            //Program finished
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();
         }
