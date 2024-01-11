@@ -14,6 +14,7 @@ namespace ConsoleAppClient
     {
         static void Main(string[] args)
         {
+            Console.Title = "Frassineti Leonardo 4H";
             string data = null;
             //Array of bytes
             byte[] bytes = new byte[1024];

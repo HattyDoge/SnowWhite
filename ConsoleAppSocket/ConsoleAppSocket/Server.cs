@@ -11,8 +11,10 @@ namespace ConsoleAppServer
     {
         static void Main(string[] args)
         {
+            Console.Title = "Frassineti Leonardo 4H";
+            //Message received to null 
             string data = null;
-            //Array of bytes
+            //Array of bytes to send as message
             byte[] bytes = new byte[1024];
 
             Console.WriteLine("\nProgramma Server Frassineti Leonardo\n");
@@ -21,7 +23,7 @@ namespace ConsoleAppServer
 #if false
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[1];
-#elif false
+#elif true
             IPAddress ipAddress = IPAddress.Any;//Fornisce un indirizzo IP che indica che il server deve attendere 
                                                 //l'attività dei client su tutte le interfacce di rete. Questo campo è di sola lettura
 #else
@@ -36,7 +38,7 @@ namespace ConsoleAppServer
                 //Associate the IP address and the port
                 listener.Bind(localEndPoint);
                 //Number of maximum client
-                listener.Listen(1);
+                listener.Listen(2);
 
                 //Start listening for connections
                 while (true)
@@ -63,7 +65,7 @@ namespace ConsoleAppServer
                         //Show the data on the console.
                         Console.WriteLine("Text received : {0}", data);
 
-                        //Checks if both messages are "ciao" and if the connection is still on if so it closes the connection
+                        //Checks if both messages are "ciao" and proceeds to close the connection
                         if (strMsg == "ciao" && data == "ciao")
                             break;
 
@@ -74,7 +76,7 @@ namespace ConsoleAppServer
                         
                         handler.Send(msg);
                         #endregion
-                    } while (!(strMsg == "ciao" && data == "ciao") && handler.Connected);
+                    } while (!(strMsg == "ciao" && data == "ciao") && handler.Connected);//Checks if both messages are "ciao" and if the connection is still on if so it closes the connection
                     //Close connection
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
