@@ -24,7 +24,7 @@ namespace ConsoleAppClient
             //Establish the remote endpoint for the socket
             //Dns.GetHostName returns the name of the host running the application
 #if true
-            IPAddress ipAddress = IPAddress.Parse("10.1.0.16");
+            IPAddress ipAddress = IPAddress.Parse("10.1.0.8");
 #else
             IPAddress ipAddress = IPAddress.Loopback;
 #endif
