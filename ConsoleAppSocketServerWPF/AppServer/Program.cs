@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 namespace SharedProject
@@ -20,6 +21,7 @@ namespace SharedProject
 		/// </summary>
 		/// <param name="alias">Nome del nuovo giocatore </param>
 		/// <param name="socketAlias">Socket del nuovo giocatore</param>
+		
 		public void AddUser(string alias, Socket socketAlias)
 		{
 			User user = new User(alias, socketAlias);
@@ -40,7 +42,12 @@ namespace SharedProject
 
 			}
 		}
-	}
+        public User this[int i]
+        {
+            get => usersList[i];
+            set => usersList[i] = value;
+        }
+    }
 }
 namespace ConsoleAppSocketServer
 {
@@ -59,84 +66,145 @@ namespace ConsoleAppSocketServer
 	}
 	internal class Server
 	{
+        static byte[] bytes = new byte[1024];
+        static object _lock = new object();
+        static Thread thReceiveMessages;
 		static UserList userList = new UserList();
 		static void Main(string[] args)
 		{
 			Console.Title = "Frassineti Leonardo 4H";
-			//Message received to null 
-			string data = null;
-			//Array of bytes to send as message
-			byte[] bytes = new byte[1024];
+
 
 			Console.WriteLine("\nProgramma Server Frassineti Leonardo\n");
 			//Establish the local endpoint for the socket
 			//Dns.GetHostName returns the name of the host running the application
-#if false
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[1];
-#elif true
+
 			IPAddress ipAddress = IPAddress.Any;//Fornisce un indirizzo IP che indica che il server deve attendere 
-												//l'attività dei client su tutte le interfacce di rete. Questo campo è di sola lettura
-#else
-            IPAddress ipAddress = IPAddress.Parse("10.1.0.8");
-#endif
 			IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 			//Create a TCP/IP socket
 			Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-			//Bind the socket to the local endpoint and listen for incoming connections.
-			try
-			{
-				//Associate the IP address and the port
-				listener.Bind(localEndPoint);
-				//Number of maximum client
-				listener.Listen(2);
+            //Bind the socket to the local endpoint and listen for incoming connections.
+            while (true)
+            {
+                try
+                {
+                    //Associate the IP address and the port
+                    listener.Bind(localEndPoint);
+                    //Number of maximum client
+                    listener.Listen(10);
 
-				//Start listening for connections
-				while (true)
-				{
-					Console.WriteLine("Waiting for connection...");
-					//Program is suspended while waiting for an incoming connection.
-					Socket handler = listener.Accept();
-					string strMsg = null;
-					Console.WriteLine("Socket connected to {0}", handler.RemoteEndPoint.ToString());
-					//An incoming connection needs to be processed
-					do
-					{
-						data = null;
-						do
-						{
-							//Receive data from client
-							int bytesRec = handler.Receive(bytes);
-							//Transforms data
-							data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-							//Receives until final instruction marked with <EOF>
+                    thReceiveMessages = new Thread(new ThreadStart(ReceiveMessages));
+                    thReceiveMessages.Start();
+                    ReceiveClients(listener);
 
-						} while (data.IndexOf("<EOF>") <= -1);
-						data = data.Remove(data.IndexOf("<EOF>"), 5);
-						//Show the data on the console.
-						Console.WriteLine("Text received : {0}", data);
-
-						//Checks if both messages are "ciao" and proceeds to close the connection
-
-						#region Echo the data back to the client.
-						Console.Write("Text to send : ");
-						strMsg = Console.ReadLine();
-						byte[] msg = Encoding.ASCII.GetBytes(strMsg + "<EOF>");
-
-						handler.Send(msg);
-						#endregion
-					} while (handler.Connected);//Checks if both messages are "ciao" and if the connection is still on if so it closes the connection
-																						 //Close connection
-					handler.Shutdown(SocketShutdown.Both);
-					handler.Close();
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.ToString());
-			}
-			//Program finished
-			
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                //Program finished
+            }
 		}
-	}
+        static void ReceiveClients(Socket listener)
+        {
+            //Start listening for connections
+            while (true)
+            {
+                //Message received to null 
+                string data = null;
+                //Array of bytes to send as message
+                Console.WriteLine("Waiting for connection...");
+                //Program is suspended while waiting for an incoming connection.
+                Socket handler = listener.Accept();
+                string strMsg = null;
+                Console.WriteLine("Socket connected to {0}", handler.RemoteEndPoint.ToString());
+                //An incoming connection needs to be processed
+                if (userList.UsersList.Count != 0)
+                {
+                    for (int i = 0; i < userList.UsersList.Count; i++)
+                    {
+                        strMsg += userList[i].Alias + "|";
+                    }
+                    strMsg.Remove(strMsg.LastIndexOf('|'));
+                    byte[] msg = Encoding.UTF8.GetBytes(strMsg + "<EOF>");
+                    handler.Send(msg);
+                    data = null;
+                }
+                else
+                {
+                    byte[] msg = Encoding.UTF8.GetBytes("<EMT>" + "<EOF>");
+                    handler.Send(msg);
+                }
+                #region gets the user alias and adds it to the list
+                do
+                {
+                    //Receive data from client and Transforms data
+                    data += Encoding.UTF8.GetString(bytes, 0, handler.Receive(bytes));
+                    //Receives until final instruction marked with <EOF>
+                } while (data.IndexOf("<EOF>") <= -1);
+                data = data.Remove(data.IndexOf("<EOF>"), 5);
+
+                if (data.Contains("<LOG>"))
+                {
+                    data.Remove(data.IndexOf("<LOG>"), 5);
+                    userList.AddUser(data, handler);
+                }
+                else
+                    userList.AddUser("Empty", handler);
+                #endregion
+
+
+
+                //Show the data on the console.
+                //Checks if both messages are "ciao" and proceeds to close the connection
+            }
+        }
+        static void ReceiveMessages()
+        {
+            try
+            {
+                string msg;
+                while (true)
+                {
+                    msg = "";
+                    lock (_lock)
+                    {
+                        for (int i = 0; i < userList.UsersList.Count; i++)
+                        {
+                            try
+                            {
+                                if (userList[i].SocketAlias.Available > 0)
+                                {
+                                    msg = "";
+                                    do
+                                    {
+                                        msg += Encoding.UTF8.GetString(bytes, 0, userList[i].SocketAlias.Receive(bytes));
+                                    } while (msg.IndexOf("<EOF>") <= -1);
+                                    msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
+                                    msg = $"{userList[i].Alias}: {msg}";
+                                    Console.WriteLine(msg);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                msg = userList[i].Alias + " left the chat";
+                                Console.WriteLine(msg);
+                                userList.UsersList.RemoveAt(i);
+                            }
+                        }
+
+                        for(int i = 0; i < userList.UsersList.Count; i++)
+                        {
+                            userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes(msg));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex}");
+            }
+        }
+    }
 }
+

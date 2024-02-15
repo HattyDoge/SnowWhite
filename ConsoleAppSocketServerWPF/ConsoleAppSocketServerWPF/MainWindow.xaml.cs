@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -41,7 +42,8 @@ namespace ConsoleAppSocketServerWPF
 
     public partial class MainWindow : Window
     {
-        static object _lock;
+		static User clientUser;
+        static object _lock = new object ();
 		static string data = null;
 		//Array of bytes
 		static byte[] bytes = new byte[1024];
@@ -60,10 +62,10 @@ namespace ConsoleAppSocketServerWPF
             //Clears the chat bar
             Tbx_InputMessage.Clear();
             //Creates the msg to send
-            byte[] msg = Encoding.ASCII.GetBytes(strMsg + "<EOF>");
-
+            byte[] msg = Encoding.UTF8.GetBytes($"{clientUser.Alias}: {strMsg}<EOF>");
             //Send the data through the socket.
             senderServer.Send(msg);
+
         }
 
         private void Btn_Disconnect_Click(object sender, RoutedEventArgs e)
@@ -82,35 +84,47 @@ namespace ConsoleAppSocketServerWPF
 				IPAddress ipAddress = IPAddress.Parse(Tbx_IPv4Input.Text);
 				IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 11000);
 				//Gets the Username/Alias from the textbox Tbx_UsernameInput and creates the User
-				User client = new User(Tbx_UsernameInput.Text, new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp));
+				clientUser = new User(Tbx_UsernameInput.Text, new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp));
 				//Puts the client socket to
-				senderServer = client.SocketAlias;
+				senderServer = clientUser.SocketAlias;
 				//Connects the user to the server
-				client.SocketAlias.Connect(remoteEndPoint);
+				clientUser.SocketAlias.Connect(remoteEndPoint);
 				//Receives the user list
 				Lbx_Log.Items.Add($"Socket connected to {senderServer.RemoteEndPoint}");
 				//Starts a thread that sends messages to the server
 				string strMsg = null;
+				#region reads the message and splits the users names in a vector
 				do
 				{
-					#region reads the message and splits the users names in a vector
-					do
-					{
-						int bytesRec = senderServer.Receive(bytes);
-						data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-					} while (data.IndexOf("<EOF>") <= -1);
-					var temp = data.Split('|');
-					for (int i = 0; i < temp.Length; i++)
-					{
-						userNames.Add(temp[i]);
-						Lbx_Log.Items.Add($"{temp[i]} entered the chat");
-					}
-					#endregion
-				} while (senderServer.Connected);
-				//Starts a thread that receives messages to the server
-				thReceiveMessages = new Thread(new ThreadStart(ReceiveMessages)); thReceiveMessages.Start();
+					int bytesRec = senderServer.Receive(bytes);
+					data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
+				} while (data.IndexOf("<EOF>") <= -1);
+                #endregion
+                #region checks if there are users
+                if (data.StartsWith("<EMT>"))
+				{
+                    Lbx_Log.Items.Add("Empty Chat");
+                }
+				else
+				{
+                    var temp = data.Split('|');
+                    for (int i = 0; i < temp.Length; i++)
+                    {
+                        userNames.Add(temp[i]);
+                        Lbx_Log.Items.Add($"{temp[i]} entered the chat");
+                    }
+                }
+				#endregion
+				#region sends the client data to the server
+				strMsg = clientUser.Alias;
+                byte[] msg = Encoding.UTF8.GetBytes(strMsg + "<EOF>");
+                //Send the data through the socket.
+                senderServer.Send(msg);
+                #endregion
+                //Starts a thread that receives messages to the server
+                thReceiveMessages = new Thread(new ThreadStart(ReceiveMessages)); thReceiveMessages.Start();
 			}
-			catch 
+			catch
 			{
 				Lbx_Log.Items.Add("Couldn't connect to the server");
 			}
@@ -126,7 +140,7 @@ namespace ConsoleAppSocketServerWPF
 						do
 						{
 							int bytesRec = senderServer.Receive(bytes);
-							data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+							data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
 						} while (data.IndexOf("<EOF>") <= -1);
 						data = data.Remove(data.IndexOf("<EOF>"), 5);
 					}
@@ -138,15 +152,30 @@ namespace ConsoleAppSocketServerWPF
 							{
 								if (data.Contains("<EXT>"))
 								{
-									Lbx_Log.Items.Add($"{user} exited the chat");
-									userNames.Remove(user);
+                                    Dispatcher.Invoke(() =>
+                                    {
+                                        Lbx_Log.Items.Add($"{user} exited the chat");
+                                    });
+                                    userNames.Remove(user);
 								}
-							}
+                                if (data.Contains("<ENT>"))
+                                {
+                                    Dispatcher.Invoke(() =>
+                                    {
+                                        Lbx_Log.Items.Add($"{user} entered the chat");
+                                    });
+                                    userNames.Remove(user);
+                                }
+                            }
 					}
 					else
 					{
-						//Format is "User Alias" : "Text"
-						Lbx_Chat.Items.Add(data);
+                        //Format is "User Alias" : "Text"
+                        Dispatcher.Invoke(() =>
+                        {
+                            Lbx_Chat.Items.Add(data);
+                        });
+
 					}
 				}
             }
