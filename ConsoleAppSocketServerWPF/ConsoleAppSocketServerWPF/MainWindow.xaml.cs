@@ -5,51 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-namespace SharedProject
-{
-    internal class UserList
-    {
-        List<User> usersList;
-        internal List<User> UsersList { get => usersList; set => usersList = value; }
-        public UserList() { UsersList = new List<User>(); }
-        /// <summary>
-        /// Crea ed aggiunge alla lista un nuovo giocatore
-        /// </summary>
-        /// <param name="alias">Nome del nuovo giocatore </param>
-        /// <param name="socketAlias">Socket del nuovo giocatore</param>
-        public void AddUser(string alias, Socket socketAlias)
-        {
-            User user = new User(alias, socketAlias);
-            UsersList.Add(user);
-        }
-        ///<summary>
-        ///
-        /// </summary>
-        /// <param name="socketAlias">Socket del client a cui inviare la lista</param>
-        public void InviaListaAlias(Socket socketAlias)
-        {
-            string lista = "";
-            if (UsersList.Count > 0)
-            {
-                lista = UsersList[0].Alias;
-                for(int i = 1; i < UsersList.Count; i++)
-                    lista = lista + ";" + UsersList[i].Alias;
-
-            }
-        }
-    }
-}
 namespace ConsoleAppSocketServerWPF
 {
     /// <summary>
@@ -72,94 +41,115 @@ namespace ConsoleAppSocketServerWPF
 
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        static object _lock;
+		static string data = null;
+		//Array of bytes
+		static byte[] bytes = new byte[1024];
+        static List<string> userNames;
+		static Socket senderServer;
+        static Thread thReceiveMessages;
+
+		public MainWindow()
         {
             InitializeComponent();
-            string data = null;
-            //Array of bytes
-            byte[] bytes = new byte[1024];
-
-
-            //Establish the remote endpoint for the socket
-            //Dns.GetHostName returns the name of the host running the application
-
-
-            //Create a TCP/IP socket
-            Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            //Connect the remote endpoint and send
-            try
-            {
-                sender.Connect(remoteEndPoint);
-                //Istruction for debug
-                Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
-                //Encode the data string into a byte array
-                string strMsg = null;
-                do
-                {
-
-                    #region reads the message and sends it in bytes
-                    Console.Write("Text to send : ");
-                    strMsg = Console.ReadLine();
-                    //Creates the msg to send
-                    byte[] msg = Encoding.ASCII.GetBytes(strMsg + "<EOF>");
-
-                    //Send the data through the socket.
-                    int bytesSent = sender.Send(msg);
-                    //Checks if both messages are "ciao" and if the connection is still on if so it closes the connection
-                    if (strMsg == "ciao" && data == "ciao")
-                        break;
-                    #endregion
-
-                    #region receive data and removes protocol EOF
-                    data = null;
-                    do
-                    {
-                        int bytesRec = sender.Receive(bytes);
-                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    } while (data.IndexOf("<EOF>") <= -1);
-                    data = data.Remove(data.IndexOf("<EOF>"), 5);
-                    #endregion
-                    //Prints to screen message received
-                    Console.WriteLine("Text received : {0}", data);
-
-                } while (!(strMsg == "ciao" && data == "ciao") && sender.Connected);
-
-                //Release the socket.
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
-
-            }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
-            //Program finished
         }
         private void Btn_Send_Click(object sender, RoutedEventArgs e)
         {
             //Sends message contained in Tbx_InputMessage
             string strMsg = Tbx_InputMessage.Text;
+            //Clears the chat bar
+            Tbx_InputMessage.Clear();
             //Creates the msg to send
             byte[] msg = Encoding.ASCII.GetBytes(strMsg + "<EOF>");
 
             //Send the data through the socket.
-            int bytesSent = sender.Send(msg);
+            senderServer.Send(msg);
         }
 
         private void Btn_Disconnect_Click(object sender, RoutedEventArgs e)
         {
-            //Shutdowns comunication on 
+            //Shutdowns comunication on
+            thReceiveMessages.Abort();
+            senderServer.Shutdown(SocketShutdown.Both);
+            senderServer.Close();
         }
 
         private void Btn_Connect_Click(object sender, RoutedEventArgs e)
         {
-            //Gets the ip address from the textbox Tbx_IPv4Input
-            IPAddress ipAddress = IPAddress.Parse(Tbx_IPv4Input.Text);
-            IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 11000);
-            //Gets the Username/Alias from the textbox Tbx_UsernameInput and creates the User
-            User client = new User(Tbx_UsernameInput.Text,new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp));
-            //Connects the user to the server
-            //Receives the user list
-            //Starts a thread that sends messages to the server
-            //Starts a thread that receives messages to the server
+			//Gets the ip address from the textbox Tbx_IPv4Input
+			try
+			{
+				IPAddress ipAddress = IPAddress.Parse(Tbx_IPv4Input.Text);
+				IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 11000);
+				//Gets the Username/Alias from the textbox Tbx_UsernameInput and creates the User
+				User client = new User(Tbx_UsernameInput.Text, new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp));
+				//Puts the client socket to
+				senderServer = client.SocketAlias;
+				//Connects the user to the server
+				client.SocketAlias.Connect(remoteEndPoint);
+				//Receives the user list
+				Lbx_Log.Items.Add($"Socket connected to {senderServer.RemoteEndPoint}");
+				//Starts a thread that sends messages to the server
+				string strMsg = null;
+				do
+				{
+					#region reads the message and splits the users names in a vector
+					do
+					{
+						int bytesRec = senderServer.Receive(bytes);
+						data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+					} while (data.IndexOf("<EOF>") <= -1);
+					var temp = data.Split('|');
+					for (int i = 0; i < temp.Length; i++)
+					{
+						userNames.Add(temp[i]);
+						Lbx_Log.Items.Add($"{temp[i]} entered the chat");
+					}
+					#endregion
+				} while (senderServer.Connected);
+				//Starts a thread that receives messages to the server
+				thReceiveMessages = new Thread(new ThreadStart(ReceiveMessages)); thReceiveMessages.Start();
+			}
+			catch 
+			{
+				Lbx_Log.Items.Add("Couldn't connect to the server");
+			}
+		}
+        private void ReceiveMessages()
+        {
+            while (true) 
+            {
+				if (senderServer.Available > 0)
+				{
+					lock (_lock)
+					{
+						do
+						{
+							int bytesRec = senderServer.Receive(bytes);
+							data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+						} while (data.IndexOf("<EOF>") <= -1);
+						data = data.Remove(data.IndexOf("<EOF>"), 5);
+					}
+					//Data consist in the message if it has <LOG> it means it is data sent to update things about the users
+					if (data.StartsWith("<LOG>"))
+					{
+						foreach (string user in userNames)
+							if (data.Contains(user))
+							{
+								if (data.Contains("<EXT>"))
+								{
+									Lbx_Log.Items.Add($"{user} exited the chat");
+									userNames.Remove(user);
+								}
+							}
+					}
+					else
+					{
+						//Format is "User Alias" : "Text"
+						Lbx_Chat.Items.Add(data);
+					}
+				}
+            }
         }
-
     }
 }

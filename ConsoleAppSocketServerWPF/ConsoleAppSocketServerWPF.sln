@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppSocketServerWPF", "ConsoleAppSocketServerWPF\ConsoleAppSocketServerWPF.csproj", "{9FB6526C-6472-4D63-BC8E-0F493070C565}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppSocketClientWPF", "ConsoleAppSocketServerWPF\ConsoleAppSocketClientWPF.csproj", "{9FB6526C-6472-4D63-BC8E-0F493070C565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServer", "AppServer\AppServer.csproj", "{340E9417-F58D-4E0E-9DBE-043AD404F3C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppServer", "AppServer\AppServer.csproj", "{340E9417-F58D-4E0E-9DBE-043AD404F3C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

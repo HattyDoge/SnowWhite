@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="Lbx_Users" HorizontalAlignment="Left" Height="307" Margin="422,49,0,0" VerticalAlignment="Top" Width="154" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <ListBox x:Name="Lbx_Log" HorizontalAlignment="Left" Height="307" Margin="422,49,0,0" VerticalAlignment="Top" Width="154" d:ItemsSource="{d:SampleData ItemCount=5}"/>
         <ListBox x:Name="Lbx_Chat" HorizontalAlignment="Left" Height="307" Margin="28,49,0,0" VerticalAlignment="Top" Width="394" d:ItemsSource="{d:SampleData ItemCount=5}"/>
         <TextBox x:Name="Tbx_UsernameInput" HorizontalAlignment="Left" Height="45" Margin="581,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
         <TextBox x:Name="Tbx_IPv4Input" HorizontalAlignment="Left" Height="51" Margin="581,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
@@ -17,8 +17,8 @@
         <Button x:Name="Btn_Connect" Content="Connect" HorizontalAlignment="Left" Height="51" Margin="581,189,0,0" VerticalAlignment="Top" Width="103" Click="Btn_Connect_Click"/>
         <Button x:Name="Btn_Disconnect" Content="Disconnect" HorizontalAlignment="Left" Height="51" Margin="687,189,0,0" VerticalAlignment="Top" Width="103" Click="Btn_Disconnect_Click"/>
         <Button x:Name="Btn_Send" Content="Send" HorizontalAlignment="Left" Height="55" Margin="422,358,0,0" VerticalAlignment="Top" Width="154" Click="Btn_Send_Click"/>
-        <Label x:Name="Lbl_Username_Copy" Content="Username" HorizontalAlignment="Left" Height="36" Margin="422,13,0,0" VerticalAlignment="Top" Width="154"/>
-        <Label x:Name="Lbl_Username_Copy1" Content="Username" HorizontalAlignment="Left" Height="36" Margin="28,13,0,0" VerticalAlignment="Top" Width="394"/>
+        <Label x:Name="Lbl_Chat" Content="Chat Log" HorizontalAlignment="Left" Height="36" Margin="422,13,0,0" VerticalAlignment="Top" Width="154"/>
+        <Label x:Name="Lbl_ChatLog" Content="Chat" HorizontalAlignment="Left" Height="36" Margin="28,13,0,0" VerticalAlignment="Top" Width="394"/>
 
     </Grid>
 </Window>
