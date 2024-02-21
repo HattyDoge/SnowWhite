@@ -118,8 +118,9 @@ namespace ConsoleAppSocketServer
                 Socket handler = listener.Accept();
                 string strMsg = null;
                 Console.WriteLine("Socket connected to {0}", handler.RemoteEndPoint.ToString());
-                //An incoming connection needs to be processed
-                if (userList.UsersList.Count != 0)
+				//An incoming connection needs to be processed
+				#region Sends Basic information
+				if (userList.UsersList.Count != 0)
                 {
                     for (int i = 0; i < userList.UsersList.Count; i++)
                     {
@@ -135,20 +136,21 @@ namespace ConsoleAppSocketServer
                     byte[] msg = Encoding.UTF8.GetBytes("<EMT>" + "<EOF>");
                     handler.Send(msg);
                 }
-                #region gets the user alias and adds it to the list
-                do
-                {
+				#endregion
+				#region gets the user alias and adds it to the list
+				do
+				{
                     //Receive data from client and Transforms data
                     data += Encoding.UTF8.GetString(bytes, 0, handler.Receive(bytes));
                     //Receives until final instruction marked with <EOF>
                 } while (data.IndexOf("<EOF>") <= -1);
                 data = data.Remove(data.IndexOf("<EOF>"), 5);
 
-                if (data.Contains("<LOG>"))
+                if (data.Contains("<LOG>") && !data.Contains("<EMT>"))
                 {
-                    data.Remove(data.IndexOf("<LOG>"), 5);
+					data.Remove(data.IndexOf("<LOG>"), 5);
                     userList.AddUser(data, handler);
-                }
+				}
                 else
                     userList.AddUser("Empty", handler);
                 #endregion
@@ -181,13 +183,15 @@ namespace ConsoleAppSocketServer
                                         msg += Encoding.UTF8.GetString(bytes, 0, userList[i].SocketAlias.Receive(bytes));
                                     } while (msg.IndexOf("<EOF>") <= -1);
                                     msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
-                                    msg = $"{userList[i].Alias}: {msg}";
+                                    if (msg.StartsWith("<LOG><EXT>"))
+                                        throw new Exception();
+                                    msg = $"{msg}";
                                     Console.WriteLine(msg);
                                 }
                             }
                             catch (Exception e)
                             {
-                                msg = userList[i].Alias + " left the chat";
+                                msg = "<LOG>" +userList[i].Alias + "<EXT>";
                                 Console.WriteLine(msg);
                                 userList.UsersList.RemoveAt(i);
                             }
