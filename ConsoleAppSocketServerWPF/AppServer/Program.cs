@@ -1,4 +1,5 @@
-﻿using ConsoleAppSocketServer;
+﻿//Leonardo Frassineti 4H
+using ConsoleAppSocketServer;
 using SharedProject;
 using System;
 using System.Collections.Generic;
@@ -118,45 +119,52 @@ namespace ConsoleAppSocketServer
                 Socket handler = listener.Accept();
                 string strMsg = null;
                 Console.WriteLine("Socket connected to {0}", handler.RemoteEndPoint.ToString());
-				//An incoming connection needs to be processed
-				#region Sends Basic information
-				if (userList.UsersList.Count != 0)
+                //An incoming connection needs to be processed
+                #region Sends Basic information
+                lock (_lock)
                 {
+                    if (userList.UsersList.Count != 0)
+                    {
+                        for (int i = 0; i < userList.UsersList.Count; i++)
+                        {
+                            strMsg += userList[i].Alias + "|";
+                        }
+                        strMsg = strMsg.Remove(strMsg.LastIndexOf('|'));
+
+                        byte[] msg = Encoding.UTF8.GetBytes(strMsg + "<EOF>");
+                        handler.Send(msg);
+                        data = null;
+                    }
+                    else
+                    {
+                        byte[] msg = Encoding.UTF8.GetBytes("<EMT>" + "<EOF>");
+                        handler.Send(msg);
+                    }
+                    #endregion
+                    #region gets the user alias and adds it to the list
+                    do
+                    {
+                        //Receive data from client and Transforms data
+                        data += Encoding.UTF8.GetString(bytes, 0, handler.Receive(bytes));
+                        //Receives until final instruction marked with <EOF>
+                    } while (data.IndexOf("<EOF>") <= -1);
+                    data = data.Remove(data.IndexOf("<EOF>"), 5);
+
+                    if (data.Contains("<LOG>") && !data.Contains("<EMT>"))
+                    {
+                        data = data.Remove(data.IndexOf("<LOG>"), 5);
+                        userList.AddUser(data, handler);
+                    }
+                    else
+                    {
+                        userList.AddUser("Empty", handler);
+                    }
+                    #endregion
                     for (int i = 0; i < userList.UsersList.Count; i++)
                     {
-                        strMsg += userList[i].Alias + "|";
+                        userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><ENT>" + data + "<EOF>"));
                     }
-                    strMsg.Remove(strMsg.LastIndexOf('|'));
-                    byte[] msg = Encoding.UTF8.GetBytes(strMsg + "<EOF>");
-                    handler.Send(msg);
-                    data = null;
                 }
-                else
-                {
-                    byte[] msg = Encoding.UTF8.GetBytes("<EMT>" + "<EOF>");
-                    handler.Send(msg);
-                }
-				#endregion
-				#region gets the user alias and adds it to the list
-				do
-				{
-                    //Receive data from client and Transforms data
-                    data += Encoding.UTF8.GetString(bytes, 0, handler.Receive(bytes));
-                    //Receives until final instruction marked with <EOF>
-                } while (data.IndexOf("<EOF>") <= -1);
-                data = data.Remove(data.IndexOf("<EOF>"), 5);
-
-                if (data.Contains("<LOG>") && !data.Contains("<EMT>"))
-                {
-					data = data.Remove(data.IndexOf("<LOG>"), 5);
-                    userList.AddUser(data, handler);
-				}
-                else
-                    userList.AddUser("Empty", handler);
-                #endregion
-
-
-
                 //Show the data on the console.
                 //Checks if both messages are "ciao" and proceeds to close the connection
             }

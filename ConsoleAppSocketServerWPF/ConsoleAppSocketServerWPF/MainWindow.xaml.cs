@@ -2,24 +2,12 @@
 using ConsoleAppSocketServerWPF;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 namespace ConsoleAppSocketServerWPF
 {
     /// <summary>
@@ -47,7 +35,7 @@ namespace ConsoleAppSocketServerWPF
         static string data = null;
         //Array of bytes
         static byte[] bytes = new byte[1024];
-        static List<string> userNames;
+        static List<string> userNames = new List<string>();
         static Socket senderServer;
         static Thread thReceiveMessages;
 
@@ -78,7 +66,7 @@ namespace ConsoleAppSocketServerWPF
             thReceiveMessages.Abort();
             senderServer.Shutdown(SocketShutdown.Both);
             senderServer.Close();
-            Lbx_Log.Items.Add(("Exited {0}", senderServer.RemoteEndPoint));
+            Lbx_Log.Items.Add("Exited Chat");
 
         }
 
@@ -105,6 +93,7 @@ namespace ConsoleAppSocketServerWPF
                     int bytesRec = senderServer.Receive(bytes);
                     data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
                 } while (data.IndexOf("<EOF>") <= -1);
+                data = data.Remove(data.IndexOf("<EOF>"), 5);
                 #endregion
                 #region checks if there are users
                 if (data.StartsWith("<EMT>"))
@@ -141,6 +130,7 @@ namespace ConsoleAppSocketServerWPF
         {
             while (true)
             {
+                data = "";
                 if (senderServer.Available > 0)
                 {
                     lock (_lock)
@@ -158,24 +148,25 @@ namespace ConsoleAppSocketServerWPF
                         data = data.Remove(data.IndexOf("<LOG>"), 5);
                         if (data.Contains("<ENT>"))
                         {
-                            data = data.Remove(data.IndexOf("<LOG>"), 5);
+                            data = data.Remove(data.IndexOf("<ENT>"), 5);
                             Dispatcher.Invoke(() =>
                             {
                                 Lbx_Log.Items.Add($"{data} entered the chat");
                             });
                         }
-                        foreach (string user in userNames)
-                            if (data.Contains(user))
-                            {
-                                if (data.Contains("<EXT>"))
+                        if (userNames.Count > 0)
+                            foreach (string user in userNames)
+                                if (data.Contains(user))
                                 {
-                                    Dispatcher.Invoke(() =>
+                                    if (data.Contains("<EXT>"))
                                     {
-                                        Lbx_Log.Items.Add($"{user} exited the chat");
-                                    });
-                                    userNames.Remove(user);
+                                        Dispatcher.Invoke(() =>
+                                        {
+                                            Lbx_Log.Items.Add($"{user} exited the chat");
+                                        });
+                                        userNames.Remove(user);
+                                    }
                                 }
-                            }
                     }
                     else
                     {
@@ -188,7 +179,7 @@ namespace ConsoleAppSocketServerWPF
                     }
                 }
 
-                data = "";
+
             }
         }
     }
