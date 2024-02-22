@@ -148,7 +148,7 @@ namespace ConsoleAppSocketServer
 
                 if (data.Contains("<LOG>") && !data.Contains("<EMT>"))
                 {
-					data.Remove(data.IndexOf("<LOG>"), 5);
+					data = data.Remove(data.IndexOf("<LOG>"), 5);
                     userList.AddUser(data, handler);
 				}
                 else

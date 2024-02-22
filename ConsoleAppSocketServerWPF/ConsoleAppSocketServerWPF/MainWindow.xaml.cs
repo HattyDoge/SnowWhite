@@ -176,16 +176,17 @@ namespace ConsoleAppSocketServerWPF
 ;
                             }
                     }
-                }
-                else
-                {
-                    //Format is "User Alias" : "Text"
-                    Dispatcher.Invoke(() =>
+                    else
                     {
-                        Lbx_Chat.Items.Add(data);
-                    });
+                        //Format is "User Alias" : "Text"
+                        Dispatcher.Invoke(() =>
+                        {
+                            Lbx_Chat.Items.Add(data);
+                        });
 
+                    }
                 }
+
                 data = "";
             }
         }
