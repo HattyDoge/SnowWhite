@@ -124,7 +124,7 @@ namespace ConsoleAppSocketServerWPF
                 #region sends the client data to the server
                 strMsg = clientUser.Alias;
                 if (strMsg == "")
-                    strMsg = "EMT";
+                    strMsg = "<EMT>";
                 byte[] msg = Encoding.UTF8.GetBytes("<LOG>" + strMsg + "<EOF>");
                 //Send the data through the socket.
                 senderServer.Send(msg);
@@ -175,7 +175,6 @@ namespace ConsoleAppSocketServerWPF
                                     });
                                     userNames.Remove(user);
                                 }
-;
                             }
                     }
                     else

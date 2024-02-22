@@ -185,8 +185,8 @@ namespace ConsoleAppSocketServer
                                     msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
                                     if (msg.StartsWith("<LOG><EXT>"))
                                         throw new Exception();
-                                    msg = $"{msg}<EOF>";
                                     Console.WriteLine(msg);
+                                    msg = $"{msg}<EOF>";
                                 }
                             }
                             catch (Exception e)
