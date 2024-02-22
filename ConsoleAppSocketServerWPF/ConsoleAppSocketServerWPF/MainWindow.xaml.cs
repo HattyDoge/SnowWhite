@@ -78,6 +78,8 @@ namespace ConsoleAppSocketServerWPF
             thReceiveMessages.Abort();
             senderServer.Shutdown(SocketShutdown.Both);
             senderServer.Close();
+            Lbx_Log.Items.Add(("Exited {0}", senderServer.RemoteEndPoint));
+
         }
 
         private void Btn_Connect_Click(object sender, RoutedEventArgs e)

@@ -185,13 +185,13 @@ namespace ConsoleAppSocketServer
                                     msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
                                     if (msg.StartsWith("<LOG><EXT>"))
                                         throw new Exception();
-                                    msg = $"{msg}";
+                                    msg = $"{msg}<EOF>";
                                     Console.WriteLine(msg);
                                 }
                             }
                             catch (Exception e)
                             {
-                                msg = "<LOG>" +userList[i].Alias + "<EXT>";
+                                msg = "<LOG>" + userList[i].Alias + "<EXT>";
                                 Console.WriteLine(msg);
                                 userList.UsersList.RemoveAt(i);
                             }
