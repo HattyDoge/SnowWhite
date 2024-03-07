@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfAppDrawingCanvasMouse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppDrawingCanvasMouse"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Background="#FFDFADE0">
+    <Grid>
+        <Canvas x:Name="Canvas_Draw" HorizontalAlignment="Left" Height="393" Margin="0,0,0,0" VerticalAlignment="Top" Width="385" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove">
+            <Canvas.Background>
+                <SolidColorBrush Color="White"/>
+            </Canvas.Background>
+        </Canvas>
+        <Canvas x:Name="Canvas_Result" HorizontalAlignment="Left" Height="393" Margin="415,0,0,0" VerticalAlignment="Top" Width="385" Background="White"/>
+        <TextBox x:Name="Tbx_Punto" AcceptsReturn="True" HorizontalAlignment="Left" Height="40" Margin="28,472,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249"/>
+        <TextBox x:Name="Tbx_Linea" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Height="123" Margin="480,444,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="254"/>
+        <Label Content="Ultima Linea" Margin="480,416,66,140"/>
+        <Label Content="Punto Inizio" Margin="28,444,523,112"/>
+    </Grid>
+</Window>
