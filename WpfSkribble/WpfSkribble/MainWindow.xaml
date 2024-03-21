@@ -1,0 +1,29 @@
+﻿<Window x:Class="WpfSkribble.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfSkribble"
+        mc:Ignorable="d"
+        Title="Leonardo Frassineti 4H" Height="600" Width="800" Background="#FFDFADE0">
+    <Grid>
+        <Canvas x:Name="Canvas_Draw" HorizontalAlignment="Left" Height="393" Margin="0,0,0,0" VerticalAlignment="Top" Width="385" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" Visibility="Hidden">
+            <Canvas.Background>
+                <SolidColorBrush Color="White"/>
+            </Canvas.Background>
+        </Canvas>
+        <Canvas x:Name="Canvas_Result" HorizontalAlignment="Left" Height="393" VerticalAlignment="Top" Width="385" Background="White" Visibility="Hidden"/>
+        <TextBox x:Name="Tbx_UsernameInput" HorizontalAlignment="Left" Height="45" Margin="581,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
+        <TextBox x:Name="Tbx_IPv4Input" HorizontalAlignment="Left" Height="51" Margin="581,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
+        <TextBox x:Name="Tbx_InputMessage" HorizontalAlignment="Left" Height="55" Margin="0,418,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" IsEnabled="False"/>
+        <Label x:Name="Lbl_Username" Content="Username" HorizontalAlignment="Left" Height="36" Margin="581,13,0,0" VerticalAlignment="Top" Width="209"/>
+        <Label Content="Server IP" HorizontalAlignment="Left" Height="36" Margin="581,97,0,0" VerticalAlignment="Top" Width="209"/>
+        <Button x:Name="Btn_Connect" Content="Connect" HorizontalAlignment="Left" Height="51" Margin="581,189,0,0" VerticalAlignment="Top" Width="103" Click="Btn_Connect_Click"/>
+        <Button x:Name="Btn_Disconnect" Content="Disconnect" HorizontalAlignment="Left" Height="51" Margin="687,189,0,0" VerticalAlignment="Top" Width="103" Click="Btn_Disconnect_Click" IsEnabled="False"/>
+        <Button x:Name="Btn_Send" Content="Send" HorizontalAlignment="Left" Height="55" Margin="390,418,0,0" VerticalAlignment="Top" Width="154" Click="Btn_Send_Click" IsEnabled="False"/>
+        <Label x:Name="Lbl_ChatLog" Content="Chat" HorizontalAlignment="Left" Height="35" Margin="390,13,0,0" VerticalAlignment="Top" Width="164"/>
+        <ListBox x:Name="Lbx_Chat" HorizontalAlignment="Left" Height="345" Margin="390,48,0,0" VerticalAlignment="Top" Width="164" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <ListBox x:Name="Lbx_Log" HorizontalAlignment="Left" Height="288" Margin="581,286,0,0" VerticalAlignment="Top" Width="209" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Label x:Name="Lbl_Chat" Content="Chat Log" HorizontalAlignment="Left" Height="36" Margin="581,250,0,0" VerticalAlignment="Top" Width="209"/>
+    </Grid>
+</Window>

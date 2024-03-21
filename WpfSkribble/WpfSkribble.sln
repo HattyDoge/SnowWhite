@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSkribble", "WpfSkribble\WpfSkribble.csproj", "{2D576DE7-E444-4298-82FD-AC8EF9405944}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{1BCB83D2-4C7A-4F39-9C51-E4F63BCE9044}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D576DE7-E444-4298-82FD-AC8EF9405944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D576DE7-E444-4298-82FD-AC8EF9405944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D576DE7-E444-4298-82FD-AC8EF9405944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D576DE7-E444-4298-82FD-AC8EF9405944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BCB83D2-4C7A-4F39-9C51-E4F63BCE9044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BCB83D2-4C7A-4F39-9C51-E4F63BCE9044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BCB83D2-4C7A-4F39-9C51-E4F63BCE9044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BCB83D2-4C7A-4F39-9C51-E4F63BCE9044}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E581CC9-3312-45C8-99E1-3D6F9E7A53BC}
+	EndGlobalSection
+EndGlobal
