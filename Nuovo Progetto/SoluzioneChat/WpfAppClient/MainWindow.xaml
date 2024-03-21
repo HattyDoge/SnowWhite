@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="325" Width="355" ResizeMode="NoResize">
+	<Grid>
+		<Button x:Name="BTN_connect" Content="Connetti" HorizontalAlignment="Left" Height="26" Margin="239,10,0,0" VerticalAlignment="Top" Width="88" Click="BTN_connect_Click"/>
+		<Button x:Name="btnSend" Content="Button" HorizontalAlignment="Left" Height="26" Margin="239,252,0,0" VerticalAlignment="Top" Width="88" Click="btnSend_Click"/>
+		<TextBox x:Name="txtAlias" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="224"/>
+		<TextBox x:Name="txtMessaggio" HorizontalAlignment="Left" Height="26" Margin="10,252,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="224"/>
+		<TextBox x:Name="txtMessaggiDiServizio" HorizontalAlignment="Left" Margin="178,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="149" Height="206" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
+		<TextBox x:Name="txtMessaggi" HorizontalAlignment="Left" Margin="10,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="163" Height="206" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
+
+	</Grid>
 </Window>
