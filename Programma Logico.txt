@@ -1,0 +1,58 @@
+User:
+{
+Collegarsi
+- Controlla che Username esiste
+- Instaura connessione
+- Riceve Nomi dei client presenti
+- Controlla che ci siano e se ci sono li inserisce in una lista
+- Invia il proprio Alias
+- Avvia un thread che riceve i messaggi
+Ricevere messaggi
+- Controlla che ci siano dei dati da ricevere
+- Li riceve e Rimuove l'EOF
+- Controlla che non sia un messaggio di sistema
+ - Controlla che se sia un user che entra
+  - Inserisce il dato in chat e nella lista
+ - Controlla se il numero di user è maggiore
+  - Controlla se è un user che esce
+   - Invia il messaggio 
+   - Rimuove lo user dai userNames
+Disconnessione
+- Invia un messaggio che indica la disconnessione
+- Chiude il thread che riceve messaggi
+- Chiude il socket
+Invio Messaggio
+- Prende il messaggio da una textbox
+- Invia il messaggio con il user Alias
+}
+
+Server:
+{
+Connesione
+- Collega la porta con il socket
+- Inizia ad ascoltare per connessione
+- Avvia un thread per ricevere messaggi
+- Avvia il metodo per ricevere clienti
+Ricevere Clienti
+- Accetta una connessione dal listener e la assegna un socket
+- Invia la lista dei user
+ - in caso non ci sono user invia un "EMT"
+- Riceve i dati Alias del cliente
+- Aggiunge lo user alla userlist
+- Invia l'alias del nuovo user a tutti
+Ricevere Messaggi
+- Controllo tutta la lista in cerca di un messaggio da ricevere
+ - Riceve il messaggio
+ - Controllo se è un messaggio di disegno
+ - Controlla se è un messaggio di uscita
+  - in tal caso emana una eccezione che indica che è uscito
+ - Invia il messaggio a tutti
+}
+
+Funzione da implementare
+Server sceglie un master
+Server indica che è iniziata la partita
+Client si riconosce come master e mette visibile il canvas per disegnare
+Server fa scegliere una parola al client master e poi la memorizza e inizia la partita
+Client prima di lasciar disegnare fa scrivere una parola al master
+

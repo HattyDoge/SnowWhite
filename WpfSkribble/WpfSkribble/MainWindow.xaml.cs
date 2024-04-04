@@ -81,12 +81,14 @@ namespace WpfSkribble
                 currentPoint = e.GetPosition(this);
                 //Disegnamo i movimenti
                 Canvas_Draw.Children.Add(line);
-
+                //trasforma in testo la linea
                 string stLine = XamlWriter.Save(line);
-                StringReader stringReader = new StringReader(stLine);
-                XmlReader xmlReader = XmlReader.Create(stringReader);
-                Line linea = (Line)XamlReader.Load(xmlReader);
-                Canvas_Result.Children.Add(linea);
+                //Creates the msg to send
+                byte[] msg = Encoding.UTF8.GetBytes($"<DRW>{stLine}<EOF>");
+                //Send the data through the socket.
+                senderServer.Send(msg);
+                //traduce il testo in linea
+
             }
         }
         #endregion
@@ -133,8 +135,8 @@ namespace WpfSkribble
         {
             Btn_Send.IsEnabled = true;
             Tbx_InputMessage.IsEnabled = true;
-            Canvas_Draw.Visibility = Visibility.Visible;
-            Canvas_Result.Visibility = Visibility.Hidden;
+            Canvas_Draw.Visibility = Visibility.Hidden;
+            Canvas_Result.Visibility = Visibility.Visible;
             Btn_Disconnect.IsEnabled = true;
             Btn_Connect.IsEnabled = false;
             if (Tbx_UsernameInput.Text != "")
@@ -215,7 +217,14 @@ namespace WpfSkribble
                     //Data consist in the message if it has <LOG> it means it is data sent to update things about the users
                     lock (_lock)
                     {
-                        if (data.StartsWith("<LOG>"))
+                        if (data.StartsWith("<DRW>"))
+                        {
+                            StringReader stringReader = new StringReader(data);
+                            XmlReader xmlReader = XmlReader.Create(stringReader);
+                            Line linea = (Line)XamlReader.Load(xmlReader);
+                            Canvas_Result.Children.Add(linea);
+                        }
+                        else if (data.StartsWith("<LOG>"))
                         {
                             data = data.Remove(data.IndexOf("<LOG>"), 5);
                             if (data.Contains("<ENT>"))
@@ -238,6 +247,7 @@ namespace WpfSkribble
                                                 Lbx_Log.Items.Add($"{user} exited the chat");
                                             });
                                             userNames.Remove(user);
+                                            break;
                                         }
                                     }
                         }

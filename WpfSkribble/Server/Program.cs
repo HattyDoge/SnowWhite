@@ -167,6 +167,13 @@ namespace Server
                         userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><ENT>" + data + "<EOF>"));
                     }
                 }
+                if (userList.UsersList.Count > 1)
+                {
+                    Random random = new Random();
+                    int iMaster = random.Next(userList.UsersList.Count);
+                    userList.BecomeMaster(iMaster);
+
+                }
                 //Show the data on the console.
                 //Checks if both messages are "ciao" and proceeds to close the connection
             }
