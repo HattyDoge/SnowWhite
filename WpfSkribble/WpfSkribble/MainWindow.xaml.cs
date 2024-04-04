@@ -115,12 +115,15 @@ namespace WpfSkribble
             Btn_Disconnect.IsEnabled = false;
             Btn_Connect.IsEnabled = true;
             //Shutdowns comunication on
-            byte[] msg = Encoding.UTF8.GetBytes($"<LOG><EXT><EOF>");
-            //Send the data through the socket.
-            senderServer.Send(msg);
+            lock (_lock)
+            {
+                byte[] msg = Encoding.UTF8.GetBytes($"<LOG><EXT><EOF>");
+                //Send the data through the socket.
+                senderServer.Send(msg);
 
-            thReceiveMessages.Abort();
-            senderServer.Shutdown(SocketShutdown.Both);
+                thReceiveMessages.Abort();
+                senderServer.Shutdown(SocketShutdown.Both);
+            }
             senderServer.Close();
             Lbx_Log.Items.Add("Exited Chat");
 
@@ -221,6 +224,7 @@ namespace WpfSkribble
                                 Dispatcher.Invoke(() =>
                                 {
                                     Lbx_Log.Items.Add($"{data} entered the chat");
+                                    userNames.Add(data);
                                 });
                             }
                             if (userNames.Count > 0)
