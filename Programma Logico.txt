@@ -50,7 +50,7 @@ Ricevere Messaggi
 }
 
 Funzione da implementare
-Server sceglie un master
+Server sceglie un master*
 Server indica che è iniziata la partita
 Client si riconosce come master e mette visibile il canvas per disegnare
 Server fa scegliere una parola al client master e poi la memorizza e inizia la partita

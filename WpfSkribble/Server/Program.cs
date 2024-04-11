@@ -64,6 +64,7 @@ namespace Server
                 usersList[index].Master = true;
                 masterIndex = index;
             }
+
         }
         public void MasterBecomeGuesser()
         {
@@ -172,7 +173,13 @@ namespace Server
                     Random random = new Random();
                     int iMaster = random.Next(userList.UsersList.Count);
                     userList.BecomeMaster(iMaster);
-
+                    userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><MST>"));
+                    for (int i = 0; i < userList.UsersList.Count; i++)
+                    {
+                        if (i == iMaster)
+                            continue;
+                        userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><GSR>"));
+                    }
                 }
                 //Show the data on the console.
                 //Checks if both messages are "ciao" and proceeds to close the connection

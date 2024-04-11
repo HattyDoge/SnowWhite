@@ -29,11 +29,12 @@ namespace WpfSkribble
         Socket socketAlias;
         DateTime dateTimeStart;
         DateTime dateTimeEnd;
-        bool master;
+        bool master = false;
         public string Alias { get => alias; }
         public Socket SocketAlias { get => socketAlias; }
         public DateTime DateTimeStart { get => dateTimeStart; }
         public DateTime DateTimeEnd { get => dateTimeEnd; set => dateTimeEnd = value; }
+        public bool Master { get => master; set => master = value; }
         public User(string alias, Socket socketAlias) { this.alias = alias; this.socketAlias = socketAlias; this.dateTimeStart = DateTime.Now; }
     }
     /// <summary>
@@ -82,9 +83,9 @@ namespace WpfSkribble
                 //Disegnamo i movimenti
                 Canvas_Draw.Children.Add(line);
                 //trasforma in testo la linea
-                string stLine = XamlWriter.Save(line);
+                string stLine = $"<DRW>{line.X1}|{line.Y1}|{line.X2}|{line.Y2}<EOF>";
                 //Creates the msg to send
-                byte[] msg = Encoding.UTF8.GetBytes($"<DRW>{stLine}<EOF>");
+                byte[] msg = Encoding.UTF8.GetBytes(stLine);
                 //Send the data through the socket.
                 senderServer.Send(msg);
                 //traduce il testo in linea
@@ -219,10 +220,23 @@ namespace WpfSkribble
                     {
                         if (data.StartsWith("<DRW>"))
                         {
-                            StringReader stringReader = new StringReader(data);
-                            XmlReader xmlReader = XmlReader.Create(stringReader);
-                            Line linea = (Line)XamlReader.Load(xmlReader);
-                            Canvas_Result.Children.Add(linea);
+                            data = data.Remove(data.IndexOf("<DRW>"), 5);
+
+                            string[] parts = data.Split('|');
+
+                            if (parts.Length == 4)
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Line line = new Line();
+                                    line.Stroke = SystemColors.WindowFrameBrush;
+                                    line.X1 = double.Parse(parts[0]);
+                                    line.Y1 = double.Parse(parts[1]);
+                                    line.X2 = double.Parse(parts[2]);
+                                    line.Y2 = double.Parse(parts[3]);
+                                    Canvas_Result.Children.Add(line);
+                                });
+                            }
                         }
                         else if (data.StartsWith("<LOG>"))
                         {
@@ -234,6 +248,26 @@ namespace WpfSkribble
                                 {
                                     Lbx_Log.Items.Add($"{data} entered the chat");
                                     userNames.Add(data);
+                                });
+                            }
+                            if (data.Contains("<MST>"))
+                            {
+                                data = data.Remove(data.IndexOf("<MST>"), 5);
+                                clientUser.Master = true;
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Canvas_Draw.Visibility = Visibility.Visible;
+                                    Canvas_Result.Visibility = Visibility.Hidden;
+                                });
+                            }
+                            if (data.Contains("<GSR>"))
+                            {
+                                data = data.Remove(data.IndexOf("<GSR>"), 5);
+                                clientUser.Master = false;
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Canvas_Draw.Visibility = Visibility.Hidden;
+                                    Canvas_Result.Visibility = Visibility.Visible;
                                 });
                             }
                             if (userNames.Count > 0)
