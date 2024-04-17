@@ -183,6 +183,7 @@ namespace Server
         }
         static void StartMatch()
         {
+            Thread.Sleep(1);
 			Random random = new Random();
 			int iMaster = random.Next(userList.UsersList.Count);
 			userList.MasterBecomeGuesser();
@@ -201,6 +202,7 @@ namespace Server
                 temp += wordToGuess[wordToGuess.Length - 1];
 				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><GSR>{temp}<EOF>"));
 			}
+			Thread.Sleep(1);
 			for (int i = 0; i < userList.UsersList.Count; i++)
 			{
 				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><END>{userList[userList.MasterIndex].Alias}<EOF>"));
