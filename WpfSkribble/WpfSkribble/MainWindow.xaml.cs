@@ -187,8 +187,6 @@ namespace WpfSkribble
                     thReceiveMessages = new Thread(new ThreadStart(ReceiveMessages)); thReceiveMessages.Start();
 					Btn_Send.IsEnabled = true;
 					Tbx_InputMessage.IsEnabled = true;
-					Canvas_Draw.Visibility = Visibility.Hidden;
-					Canvas_Result.Visibility = Visibility.Visible;
 					Btn_Disconnect.IsEnabled = true;
 					Btn_Connect.IsEnabled = false;
 				}
@@ -298,6 +296,8 @@ namespace WpfSkribble
 								clientUser.GuessedRight = true;
 								Dispatcher.Invoke(() =>
 								{
+                                    Canvas_Draw.Children.Clear();
+                                    Canvas_Result.Children.Clear();
 									Lbx_Chat.Items.Add($"Il gioco è ricominciato");
                                     Lbx_Chat.Items.Add($"Il disegnatore è {data}");
 								});

@@ -30,7 +30,6 @@ namespace Server
     }
     internal class UserList
     {
-        bool oneMasterPresent;
         int masterIndex;
         List<User> usersList;
         public int MasterIndex { get => masterIndex; }
@@ -64,15 +63,12 @@ namespace Server
         }
         public void BecomeMaster(int index)
         {
-            if (oneMasterPresent)
-            {
-                usersList[index].Master = true;
-                masterIndex = index;
-            }
-
+            usersList[index].Master = true;
+            masterIndex = index;
         }
         public void MasterBecomeGuesser()
         {
+            if(masterIndex >= 0)
             usersList[masterIndex].Master = false;
         }
         public User this[int i]
@@ -189,6 +185,7 @@ namespace Server
         {
 			Random random = new Random();
 			int iMaster = random.Next(userList.UsersList.Count);
+			userList.MasterBecomeGuesser();
 			userList.BecomeMaster(iMaster);
 			wordToGuess = wordsDB[random.Next(wordsDB.Length)];
 			userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><MST>{wordToGuess}<EOF>"));
@@ -238,8 +235,7 @@ namespace Server
                                         // Controlla se la parola è quella scelta dal master
                                         if (!userList[i].Master)
                                         {
-											msg = msg.Remove(0, userList[i].Alias.Length + 2);
-                                            if (msg.ToLower() == wordToGuess.ToLower())
+                                            if (msg.Remove(0, userList[i].Alias.Length + 2).ToLower() == wordToGuess.ToLower())
                                             {
                                                 userList[i].GuessedRight = true;
                                                 userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><GDR><EOF>"));
@@ -263,16 +259,17 @@ namespace Server
                                 userList.UsersList.RemoveAt(i);
                             }
                         }
-						if (endGame)
-                        {
-							StartMatch();
-						}
 
 						for (int i = 0; i < userList.UsersList.Count; i++)
                         {
                             userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes(msg));
                         }
-                    }
+						if (endGame)
+						{
+							StartMatch();
+							endGame = false;
+						}
+					}
                 }
             }
             catch (Exception ex)
