@@ -30,7 +30,9 @@ namespace WpfSkribble
         DateTime dateTimeStart;
         DateTime dateTimeEnd;
         bool master = false;
-        public string Alias { get => alias; }
+        bool guessedRight = false;
+		public bool GuessedRight { get => guessedRight; set => guessedRight = value; }
+		public string Alias { get => alias; }
         public Socket SocketAlias { get => socketAlias; }
         public DateTime DateTimeStart { get => dateTimeStart; }
         public DateTime DateTimeEnd { get => dateTimeEnd; set => dateTimeEnd = value; }
@@ -134,16 +136,11 @@ namespace WpfSkribble
 
         private void Btn_Connect_Click(object sender, RoutedEventArgs e)
         {
-            Btn_Send.IsEnabled = true;
-            Tbx_InputMessage.IsEnabled = true;
-            Canvas_Draw.Visibility = Visibility.Hidden;
-            Canvas_Result.Visibility = Visibility.Visible;
-            Btn_Disconnect.IsEnabled = true;
-            Btn_Connect.IsEnabled = false;
             if (Tbx_UsernameInput.Text != "")
             {
-                //Gets the ip address from the textbox Tbx_IPv4Input
-                try
+
+				//Gets the ip address from the textbox Tbx_IPv4Input
+				try
                 {
                     IPAddress ipAddress = IPAddress.Parse(Tbx_IPv4Input.Text);
                     IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 11000);
@@ -188,12 +185,18 @@ namespace WpfSkribble
                     #endregion
                     //Starts a thread that receives messages to the server
                     thReceiveMessages = new Thread(new ThreadStart(ReceiveMessages)); thReceiveMessages.Start();
-                }
+					Btn_Send.IsEnabled = true;
+					Tbx_InputMessage.IsEnabled = true;
+					Canvas_Draw.Visibility = Visibility.Hidden;
+					Canvas_Result.Visibility = Visibility.Visible;
+					Btn_Disconnect.IsEnabled = true;
+					Btn_Connect.IsEnabled = false;
+				}
                 catch
                 {
                     Lbx_Log.Items.Add("Couldn't connect to the server");
                 }
-            }
+			}
             else
             {
                 Lbx_Log.Items.Add("Username Missing");
@@ -256,7 +259,12 @@ namespace WpfSkribble
                                 clientUser.Master = true;
                                 Dispatcher.Invoke(() =>
                                 {
-                                    Canvas_Draw.Visibility = Visibility.Visible;
+									Lbx_WordToFind.Items.Clear();
+									Lbx_WordToFind.Visibility = Visibility.Visible;
+									Lbl_WordToFind.Visibility = Visibility.Hidden;
+                                    Lbl_WordToDraw.Visibility = Visibility.Visible;
+									Lbx_WordToFind.Items.Add($"{data}");
+									Canvas_Draw.Visibility = Visibility.Visible;
                                     Canvas_Result.Visibility = Visibility.Hidden;
                                 });
                             }
@@ -266,11 +274,35 @@ namespace WpfSkribble
                                 clientUser.Master = false;
                                 Dispatcher.Invoke(() =>
                                 {
-                                    Canvas_Draw.Visibility = Visibility.Hidden;
+                                    Lbx_WordToFind.Items.Clear();
+									Lbx_WordToFind.Visibility = Visibility.Visible;
+									Lbl_WordToFind.Visibility = Visibility.Visible;
+									Lbl_WordToDraw.Visibility = Visibility.Hidden;
+									Lbx_WordToFind.Items.Add($"{data}");
+									Canvas_Draw.Visibility = Visibility.Hidden;
                                     Canvas_Result.Visibility = Visibility.Visible;
                                 });
                             }
-                            if (userNames.Count > 0)
+                            if (data.Contains("<GDR>"))
+                            {
+								data = data.Remove(data.IndexOf("<GDR>"), 5);
+                                clientUser.GuessedRight = true;
+								Dispatcher.Invoke(() =>
+								{
+									Lbx_Chat.Items.Add($"Hai indovinato !");
+								});
+							}
+							if (data.Contains("<END>"))
+							{
+								data = data.Remove(data.IndexOf("<END>"), 5);
+								clientUser.GuessedRight = true;
+								Dispatcher.Invoke(() =>
+								{
+									Lbx_Chat.Items.Add($"Il gioco è ricominciato");
+                                    Lbx_Chat.Items.Add($"Il disegnatore è {data}");
+								});
+							}
+							if (userNames.Count > 0)
                                 foreach (string user in userNames)
                                     if (data.Contains(user))
                                     {

@@ -49,10 +49,14 @@ Ricevere Messaggi
  - Invia il messaggio a tutti
 }
 
-Funzione da implementare
-Server sceglie un master*
-Server indica che è iniziata la partita
-Client si riconosce come master e mette visibile il canvas per disegnare
-Server fa scegliere una parola al client master e poi la memorizza e inizia la partita
-Client prima di lasciar disegnare fa scrivere una parola al master
 
+
+Funzione da implementare:
+Server sceglie un master*
+Client si riconosce come master e mette visibile il canvas per disegnare
+Server assegna una parola a random al client master e poi la memorizza e inizia la partita
+Server indica che è iniziata la partita
+Aggiungere database di parole
+Server sceglie un master random e poi continua in ordine di entrata
+Server controlla se il messagio è la parola rappresentante il disegno
+Server accende i bool di guessedRight e poi invia un comando <GDR> a chi ha indovinato

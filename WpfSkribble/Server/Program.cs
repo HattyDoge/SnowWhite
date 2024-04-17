@@ -17,7 +17,11 @@ namespace Server
         DateTime dateTimeStart;
         DateTime dateTimeEnd;
         bool master;
-        public string Alias { get => alias; }
+		bool guessedRight = false;
+        public int score = 0;
+        public int Score { get => score; set => score += value; }
+		public bool GuessedRight { get => guessedRight; set => guessedRight = value; }
+		public string Alias { get => alias; }
         public Socket SocketAlias { get => socketAlias; }
         public DateTime DateTimeStart { get => dateTimeStart; }
         public DateTime DateTimeEnd { get => dateTimeEnd; set => dateTimeEnd = value; }
@@ -29,7 +33,8 @@ namespace Server
         bool oneMasterPresent;
         int masterIndex;
         List<User> usersList;
-        internal List<User> UsersList { get => usersList; set => usersList = value; }
+        public int MasterIndex { get => masterIndex; }
+		internal List<User> UsersList { get => usersList; set => usersList = value; }
         public UserList() { UsersList = new List<User>(); masterIndex = -1; }
         /// <summary>
         /// Crea ed aggiunge alla lista un nuovo giocatore
@@ -78,6 +83,9 @@ namespace Server
     }
     internal class Program
     {
+        static string[] wordsDB = {"cock", "pisello", "montagna"};
+        static bool endGame = false;
+		static string wordToGuess = "";
         static byte[] bytes = new byte[1024];
         static object _lock = new object();
         static Thread thReceiveMessages;
@@ -170,21 +178,37 @@ namespace Server
                 }
                 if (userList.UsersList.Count > 1)
                 {
-                    Random random = new Random();
-                    int iMaster = random.Next(userList.UsersList.Count);
-                    userList.BecomeMaster(iMaster);
-                    userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><MST>"));
-                    for (int i = 0; i < userList.UsersList.Count; i++)
-                    {
-                        if (i == iMaster)
-                            continue;
-                        userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><GSR>"));
-                    }
+                    Thread.Sleep(1);
+                    StartMatch();
                 }
                 //Show the data on the console.
                 //Checks if both messages are "ciao" and proceeds to close the connection
             }
         }
+        static void StartMatch()
+        {
+			Random random = new Random();
+			int iMaster = random.Next(userList.UsersList.Count);
+			userList.BecomeMaster(iMaster);
+			wordToGuess = wordsDB[random.Next(wordsDB.Length)];
+			userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><MST>{wordToGuess}<EOF>"));
+			for (int i = 0; i < userList.UsersList.Count; i++)
+			{
+				if (i == iMaster)
+					continue;
+                string temp = wordToGuess[0] + " " ;
+                for (int j = 1; j < wordToGuess.Length-1; j++)
+                {
+                    temp += "_ ";
+                }
+                temp += wordToGuess[wordToGuess.Length - 1];
+				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><GSR>{temp}<EOF>"));
+			}
+			for (int i = 0; i < userList.UsersList.Count; i++)
+			{
+				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><END>{userList[userList.MasterIndex].Alias}<EOF>"));
+			}
+		}
         static void ReceiveMessages()
         {
             try
@@ -206,11 +230,30 @@ namespace Server
                                     {
                                         msg += Encoding.UTF8.GetString(bytes, 0, userList[i].SocketAlias.Receive(bytes));
                                     } while (msg.IndexOf("<EOF>") <= -1);
-                                    msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
-                                    if (msg.StartsWith("<LOG><EXT>"))
-                                        throw new Exception();
-                                    Console.WriteLine(msg);
-                                    msg = $"{msg}<EOF>";
+                                    if (!msg.StartsWith("<DRW>"))
+                                    {
+                                        msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
+                                        if (msg.StartsWith("<LOG><EXT>"))
+                                            throw new Exception();
+                                        // Controlla se la parola è quella scelta dal master
+                                        if (!userList[i].Master)
+                                        {
+											msg = msg.Remove(0, userList[i].Alias.Length + 2);
+                                            if (msg.ToLower() == wordToGuess.ToLower())
+                                            {
+                                                userList[i].GuessedRight = true;
+                                                userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><GDR><EOF>"));
+                                            }
+                                            if (userList[i].GuessedRight)
+                                                endGame = true;
+                                            else
+                                                endGame = false;
+                                        }
+
+                                        Console.WriteLine(msg);
+
+                                        msg = $"{msg}<EOF>";
+                                    }
                                 }
                             }
                             catch (Exception e)
@@ -220,8 +263,12 @@ namespace Server
                                 userList.UsersList.RemoveAt(i);
                             }
                         }
+						if (endGame)
+                        {
+							StartMatch();
+						}
 
-                        for (int i = 0; i < userList.UsersList.Count; i++)
+						for (int i = 0; i < userList.UsersList.Count; i++)
                         {
                             userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes(msg));
                         }
