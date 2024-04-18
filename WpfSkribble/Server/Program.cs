@@ -183,14 +183,18 @@ namespace Server
         }
         static void StartMatch()
         {
+            //Waits so that messages don't get mix together while sending
             Thread.Sleep(1);
-			Random random = new Random();
+            #region Choosing the master and giving him a word to draw
+            Random random = new Random();
 			int iMaster = random.Next(userList.UsersList.Count);
 			userList.MasterBecomeGuesser();
 			userList.BecomeMaster(iMaster);
 			wordToGuess = wordsDB[random.Next(wordsDB.Length)];
 			userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><MST>{wordToGuess}<EOF>"));
-			for (int i = 0; i < userList.UsersList.Count; i++)
+            #endregion
+            #region Encrypting the word and sending it to all guessers
+            for (int i = 0; i < userList.UsersList.Count; i++)
 			{
 				if (i == iMaster)
 					continue;
@@ -202,8 +206,11 @@ namespace Server
                 temp += wordToGuess[wordToGuess.Length - 1];
 				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><GSR>{temp}<EOF>"));
 			}
-			Thread.Sleep(1);
-			for (int i = 0; i < userList.UsersList.Count; i++)
+            #endregion
+            //Waits so that messages don't get mix together while sending
+            Thread.Sleep(1);
+			// Sends to all the users the username of the master
+            for (int i = 0; i < userList.UsersList.Count; i++)
 			{
 				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><END>{userList[userList.MasterIndex].Alias}<EOF>"));
 			}

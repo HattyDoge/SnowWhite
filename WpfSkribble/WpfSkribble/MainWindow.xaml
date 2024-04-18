@@ -6,27 +6,36 @@
         xmlns:local="clr-namespace:WpfSkribble"
         mc:Ignorable="d"
         Title="Leonardo Frassineti 4H" Height="620" Width="825" Background="#FFDFADE0">
-	<Grid>
-		<Canvas x:Name="Canvas_Draw" HorizontalAlignment="Left" Height="494" Margin="0,0,0,0" VerticalAlignment="Top" Width="432" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" ClipToBounds="True" Visibility="Hidden">
-			<Canvas.Background>
-				<SolidColorBrush Color="White"/>
-			</Canvas.Background>
-		</Canvas>
-		<Canvas x:Name="Canvas_Result" HorizontalAlignment="Left" Height="494" VerticalAlignment="Top" Width="432" Background="White" Visibility="Hidden" ClipToBounds="True"/>
-		<TextBox x:Name="Tbx_UsernameInput" HorizontalAlignment="Left" Height="45" Margin="625,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" VerticalContentAlignment="Center" FontSize="16"/>
-		<TextBox x:Name="Tbx_IPv4Input" HorizontalAlignment="Left" Height="51" Margin="625,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="127.0.0.1" FontSize="24"/>
-		<TextBox x:Name="Tbx_InputMessage" HorizontalAlignment="Left" Height="55" Margin="0,518,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="461" IsEnabled="False"/>
-		<Label x:Name="Lbl_Username" Content="Username" HorizontalAlignment="Left" Height="36" Margin="625,13,0,0" VerticalAlignment="Top" Width="165"/>
-		<Label Content="Server IP" HorizontalAlignment="Left" Height="36" Margin="625,97,0,0" VerticalAlignment="Top" Width="165"/>
-		<Button x:Name="Btn_Connect" Content="Connect" HorizontalAlignment="Left" Height="51" Margin="625,189,0,0" VerticalAlignment="Top" Width="81" Click="Btn_Connect_Click"/>
-		<Button x:Name="Btn_Disconnect" Content="Disconnect" HorizontalAlignment="Left" Height="51" Margin="708,189,0,0" VerticalAlignment="Top" Width="82" Click="Btn_Disconnect_Click" IsEnabled="False"/>
-		<Button x:Name="Btn_Send" Content="Send" HorizontalAlignment="Left" Height="55" Margin="466,518,0,0" VerticalAlignment="Top" Width="154" Click="Btn_Send_Click" IsEnabled="False"/>
-		<Label x:Name="Lbl_ChatLog" Content="Chat" HorizontalAlignment="Left" Height="35" Margin="437,113,0,0" VerticalAlignment="Top" Width="183"/>
-		<ListBox x:Name="Lbx_Chat" HorizontalAlignment="Left" Height="345" Margin="437,149,0,0" VerticalAlignment="Top" Width="183" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-		<ListBox x:Name="Lbx_Log" HorizontalAlignment="Left" Height="288" Margin="625,286,0,0" VerticalAlignment="Top" Width="165" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-		<Label x:Name="Lbl_Chat" Content="Chat Log" HorizontalAlignment="Left" Height="36" Margin="625,250,0,0" VerticalAlignment="Top" Width="165"/>
-		<Label x:Name="Lbl_WordToFind" Content="Parola da indovinare" HorizontalAlignment="Left" Height="35" Margin="437,19,0,0" VerticalAlignment="Top" Width="183" Visibility="Hidden"/>
-		<Label x:Name="Lbl_WordToDraw" Content="Parola da Disegnare" HorizontalAlignment="Left" Height="35" Margin="437,19,0,0" VerticalAlignment="Top" Width="183" Visibility="Hidden"/>
-		<ListBox x:Name="Lbx_WordToFind" HorizontalAlignment="Left" Height="53" Margin="437,55,0,0" VerticalAlignment="Top" Width="183" d:ItemsSource="{d:SampleData ItemCount=5}" Visibility="Hidden"/>
-	</Grid>
+    <Grid>
+        <Canvas x:Name="Canvas_Draw" HorizontalAlignment="Left" Height="494" Margin="0,0,0,0" VerticalAlignment="Top" Width="432" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" ClipToBounds="True" Visibility="Hidden">
+            <Canvas.Background>
+                <SolidColorBrush Color="White"/>
+            </Canvas.Background>
+        </Canvas>
+        <Canvas x:Name="Canvas_Result" HorizontalAlignment="Left" Height="494" VerticalAlignment="Top" Width="432" Background="White" Visibility="Hidden" ClipToBounds="True"/>
+        <TextBox x:Name="Tbx_UsernameInput" HorizontalAlignment="Left" Height="45" Margin="625,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" VerticalContentAlignment="Center" FontSize="16"/>
+        <TextBox x:Name="Tbx_IPv4Input" HorizontalAlignment="Left" Height="51" Margin="625,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="127.0.0.1" FontSize="24"/>
+        <TextBox x:Name="Tbx_InputMessage" HorizontalAlignment="Left" Height="55" Margin="0,518,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="461" IsEnabled="False"/>
+        <Label x:Name="Lbl_Username" Content="Username" HorizontalAlignment="Left" Height="36" Margin="625,13,0,0" VerticalAlignment="Top" Width="165"/>
+        <Label Content="Server IP" HorizontalAlignment="Left" Height="36" Margin="625,97,0,0" VerticalAlignment="Top" Width="165"/>
+        <Button x:Name="Btn_Connect" Content="Connect" HorizontalAlignment="Left" Height="51" Margin="625,189,0,0" VerticalAlignment="Top" Width="81" Click="Btn_Connect_Click"/>
+        <Button x:Name="Btn_Disconnect" Content="Disconnect" HorizontalAlignment="Left" Height="51" Margin="708,189,0,0" VerticalAlignment="Top" Width="82" Click="Btn_Disconnect_Click" IsEnabled="False"/>
+        <Button x:Name="Btn_Send" Content="Send" HorizontalAlignment="Left" Height="55" Margin="466,518,0,0" VerticalAlignment="Top" Width="154" Click="Btn_Send_Click" IsEnabled="False"/>
+        <Label x:Name="Lbl_ChatLog" Content="Chat" HorizontalAlignment="Left" Height="35" Margin="437,113,0,0" VerticalAlignment="Top" Width="183"/>
+        <ListBox x:Name="Lbx_Chat" HorizontalAlignment="Left" Height="345" Margin="437,149,0,0" VerticalAlignment="Top" Width="183" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <ListBox x:Name="Lbx_Log" HorizontalAlignment="Left" Height="288" Margin="625,286,0,0" VerticalAlignment="Top" Width="165" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Label x:Name="Lbl_Chat" Content="Chat Log" HorizontalAlignment="Left" Height="36" Margin="625,250,0,0" VerticalAlignment="Top" Width="165"/>
+        <Label x:Name="Lbl_WordToFind" Content="Parola da indovinare" HorizontalAlignment="Left" Height="35" Margin="437,19,0,0" VerticalAlignment="Top" Width="183" Visibility="Hidden"/>
+        <Label x:Name="Lbl_WordToDraw" Content="Parola da Disegnare" HorizontalAlignment="Left" Height="35" Margin="437,19,0,0" VerticalAlignment="Top" Width="183" Visibility="Hidden"/>
+        <ListBox x:Name="Lbx_WordToFind" HorizontalAlignment="Left" Height="53" Margin="437,55,0,0" VerticalAlignment="Top" Width="183" d:ItemsSource="{d:SampleData ItemCount=5}" Visibility="Hidden"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="10,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="57,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="104,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="151,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="198,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="245,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="292,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="339,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="386,457,0,0" VerticalAlignment="Top" Width="47"/>
+    </Grid>
 </Window>
