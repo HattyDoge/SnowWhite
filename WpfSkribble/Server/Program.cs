@@ -79,11 +79,13 @@ namespace Server
     }
     internal class Program
     {
-        static string[] wordsDB = {"cock", "pisello", "montagna"};
+        static string[] wordsDB = {"scopa", "vecchietta", "montagna","tavolo","telefono","monitor","maglia"};
         static bool endGame = false;
 		static string wordToGuess = "";
         static byte[] bytes = new byte[1024];
         static object _lock = new object();
+        static int addScore = 100;
+        static int defaultScore = 100; 
         static Thread thReceiveMessages;
         static UserList userList = new UserList();
         static void Main(string[] args)
@@ -172,11 +174,8 @@ namespace Server
                         userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><ENT>" + data + "<EOF>"));
                     }
                 }
-                if (userList.UsersList.Count > 1)
-                {
-                    Thread.Sleep(1);
-                    StartMatch();
-                }
+                Thread.Sleep(1);
+                StartMatch();
                 //Show the data on the console.
                 //Checks if both messages are "ciao" and proceeds to close the connection
             }
@@ -185,36 +184,54 @@ namespace Server
         {
             //Waits so that messages don't get mix together while sending
             Thread.Sleep(1);
-            #region Choosing the master and giving him a word to draw
-            Random random = new Random();
-			int iMaster = random.Next(userList.UsersList.Count);
-			userList.MasterBecomeGuesser();
-			userList.BecomeMaster(iMaster);
-			wordToGuess = wordsDB[random.Next(wordsDB.Length)];
-			userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><MST>{wordToGuess}<EOF>"));
-            #endregion
-            #region Encrypting the word and sending it to all guessers
-            for (int i = 0; i < userList.UsersList.Count; i++)
-			{
-				if (i == iMaster)
-					continue;
-                string temp = wordToGuess[0] + " " ;
-                for (int j = 1; j < wordToGuess.Length-1; j++)
+            if (userList.UsersList.Count > 1)
+            {
+                #region Choosing the master and giving him a word to draw
+                Random random = new Random();
+                int iMaster = random.Next(userList.UsersList.Count);
+                userList.MasterBecomeGuesser();
+                userList.BecomeMaster(iMaster);
+                wordToGuess = wordsDB[random.Next(wordsDB.Length)];
+                userList[iMaster].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><MST>{wordToGuess}<EOF>"));
+                #endregion
+                #region Encrypting the word and sending it to all guessers
+                for (int i = 0; i < userList.UsersList.Count; i++)
                 {
-                    temp += "_ ";
+                    userList[i].GuessedRight = false;
+                    if (i == iMaster)
+                        continue;
+                    string temp = wordToGuess[0] + " ";
+                    for (int j = 1; j < wordToGuess.Length - 1; j++)
+                    {
+                        temp += "_ ";
+                    }
+                    temp += wordToGuess[wordToGuess.Length - 1];
+                    userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><GSR>{temp}<EOF>"));
                 }
-                temp += wordToGuess[wordToGuess.Length - 1];
-				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><GSR>{temp}<EOF>"));
-			}
-            #endregion
-            //Waits so that messages don't get mix together while sending
+                #endregion
+                //Waits so that messages don't get mix together while sending
+                Thread.Sleep(1);
+                // Sends to all the users the username of the master
+
+                for (int i = 0; i < userList.UsersList.Count; i++)
+                {
+                    userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><END>{userList[userList.MasterIndex].Alias}<EOF>"));
+                }
+            }
+            else
+                userList[0].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><STP><EOF>"));
+            addScore = defaultScore;
             Thread.Sleep(1);
-			// Sends to all the users the username of the master
-            for (int i = 0; i < userList.UsersList.Count; i++)
-			{
-				userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><END>{userList[userList.MasterIndex].Alias}<EOF>"));
-			}
-		}
+            for (int i = 0;i < userList.UsersList.Count;i++)
+            {
+                userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("Score:<EOF>"));
+                for(int j = 0; j < userList.UsersList.Count;j++)
+                {
+                    Thread.Sleep(1);
+                    userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes($"{userList[j].Alias} = {userList[j].score}<EOF>"));
+                }
+            }
+        }
         static void ReceiveMessages()
         {
             try
@@ -244,15 +261,15 @@ namespace Server
                                         // Controlla se la parola è quella scelta dal master
                                         if (!userList[i].Master)
                                         {
+                                            // Controlla se l'utente ha azzeccato la parola
                                             if (msg.Remove(0, userList[i].Alias.Length + 2).ToLower() == wordToGuess.ToLower())
                                             {
                                                 userList[i].GuessedRight = true;
                                                 userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><GDR><EOF>"));
+                                                userList[i].score += addScore;
+                                                if(addScore >= 40)
+                                                    addScore -= 10;
                                             }
-                                            if (userList[i].GuessedRight)
-                                                endGame = true;
-                                            else
-                                                endGame = false;
                                         }
 
                                         Console.WriteLine(msg);
@@ -266,11 +283,18 @@ namespace Server
                                 msg = "<LOG>" + userList[i].Alias + "<EXT><EOF>";
                                 Console.WriteLine(userList[i].Alias + " Exited the chat");
                                 userList.UsersList.RemoveAt(i);
+                                if(userList.UsersList.Count == 1)
+                                    endGame = true;
                             }
                         }
 
 						for (int i = 0; i < userList.UsersList.Count; i++)
                         {
+                            if(!userList[i].Master)
+                                if (userList[i].GuessedRight)
+                                    endGame = true;
+                                else
+                                    endGame = false;
                             userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes(msg));
                         }
 						if (endGame)

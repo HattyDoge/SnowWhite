@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Leonardo Frassineti 4H" Height="620" Width="825" Background="#FFDFADE0">
     <Grid>
-        <Canvas x:Name="Canvas_Draw" HorizontalAlignment="Left" Height="494" Margin="0,0,0,0" VerticalAlignment="Top" Width="432" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" ClipToBounds="True" Visibility="Hidden">
+        <Canvas x:Name="Canvas_Draw" HorizontalAlignment="Left" Height="450" Margin="0,0,0,0" VerticalAlignment="Top" Width="432" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" ClipToBounds="True" Visibility="Hidden">
             <Canvas.Background>
                 <SolidColorBrush Color="White"/>
             </Canvas.Background>
         </Canvas>
-        <Canvas x:Name="Canvas_Result" HorizontalAlignment="Left" Height="494" VerticalAlignment="Top" Width="432" Background="White" Visibility="Hidden" ClipToBounds="True"/>
+        <Canvas x:Name="Canvas_Result" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="432" Background="White" Visibility="Hidden" ClipToBounds="True"/>
         <TextBox x:Name="Tbx_UsernameInput" HorizontalAlignment="Left" Height="45" Margin="625,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" VerticalContentAlignment="Center" FontSize="16"/>
         <TextBox x:Name="Tbx_IPv4Input" HorizontalAlignment="Left" Height="51" Margin="625,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="127.0.0.1" FontSize="24"/>
         <TextBox x:Name="Tbx_InputMessage" HorizontalAlignment="Left" Height="55" Margin="0,518,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="461" IsEnabled="False"/>
@@ -28,14 +28,6 @@
         <Label x:Name="Lbl_WordToFind" Content="Parola da indovinare" HorizontalAlignment="Left" Height="35" Margin="437,19,0,0" VerticalAlignment="Top" Width="183" Visibility="Hidden"/>
         <Label x:Name="Lbl_WordToDraw" Content="Parola da Disegnare" HorizontalAlignment="Left" Height="35" Margin="437,19,0,0" VerticalAlignment="Top" Width="183" Visibility="Hidden"/>
         <ListBox x:Name="Lbx_WordToFind" HorizontalAlignment="Left" Height="53" Margin="437,55,0,0" VerticalAlignment="Top" Width="183" d:ItemsSource="{d:SampleData ItemCount=5}" Visibility="Hidden"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="10,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="57,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="104,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="151,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="198,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="245,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="292,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="339,457,0,0" VerticalAlignment="Top" Width="47"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="386,457,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button x:Name="Btn_Clear" Content="Clear" HorizontalAlignment="Left" Height="42" Margin="386,457,0,0" VerticalAlignment="Top" Width="47" Click="Btn_Clear_Click" Background="#FFCE2525" Visibility="Hidden"/>
     </Grid>
 </Window>

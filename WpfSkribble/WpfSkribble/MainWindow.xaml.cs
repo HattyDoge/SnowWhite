@@ -94,6 +94,12 @@ namespace WpfSkribble
 
             }
         }
+        private void Btn_Clear_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas_Draw.Children.Clear();
+            Canvas_Result.Children.Clear();
+            senderServer.Send(Encoding.UTF8.GetBytes("<DRW><CLR><EOF>"));
+        }
         #endregion
 
 
@@ -115,8 +121,12 @@ namespace WpfSkribble
         {
             Btn_Send.IsEnabled = false;
             Tbx_InputMessage.IsEnabled = false;
+            Lbx_WordToFind.Visibility = Visibility.Hidden;
+            Lbl_WordToFind.Visibility = Visibility.Hidden;
+            Lbl_WordToDraw.Visibility = Visibility.Hidden;
             Canvas_Draw.Visibility = Visibility.Hidden;
             Canvas_Result.Visibility = Visibility.Hidden;
+            Btn_Clear.Visibility = Visibility.Hidden;
             Btn_Disconnect.IsEnabled = false;
             Btn_Connect.IsEnabled = true;
             //Shutdowns comunication on
@@ -219,10 +229,20 @@ namespace WpfSkribble
                     //Data consist in the message if it has <LOG> it means it is data sent to update things about the users
                     lock (_lock)
                     {
+                        //DRW = Draw sono tutti messaggi che sono indirizzati ai canvas
                         if (data.StartsWith("<DRW>"))
                         {
                             data = data.Remove(data.IndexOf("<DRW>"), 5);
-
+                            // CLR = Clear pulisce il canvas
+                            if (data.Contains("<CLR>"))
+                            {
+                                data = data.Remove(data.IndexOf("<CLR>"), 5);
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Canvas_Draw.Children.Clear();
+                                    Canvas_Result.Children.Clear();
+                                });
+                            }
                             string[] parts = data.Split('|');
 
                             if (parts.Length == 4)
@@ -239,9 +259,11 @@ namespace WpfSkribble
                                 });
                             }
                         }
+                        //LOG = tutti messaggi di sistema
                         else if (data.StartsWith("<LOG>"))
                         {
                             data = data.Remove(data.IndexOf("<LOG>"), 5);
+                            // ENT = Enters
                             if (data.Contains("<ENT>"))
                             {
                                 data = data.Remove(data.IndexOf("<ENT>"), 5);
@@ -251,21 +273,24 @@ namespace WpfSkribble
                                     userNames.Add(data);
                                 });
                             }
+                            // MST = Master l'utente è stato selezionato come guesser 
                             if (data.Contains("<MST>"))
                             {
                                 data = data.Remove(data.IndexOf("<MST>"), 5);
                                 clientUser.Master = true;
                                 Dispatcher.Invoke(() =>
                                 {
-									Lbx_WordToFind.Items.Clear();
-									Lbx_WordToFind.Visibility = Visibility.Visible;
-									Lbl_WordToFind.Visibility = Visibility.Hidden;
+                                    Lbx_WordToFind.Items.Clear();
+                                    Lbx_WordToFind.Visibility = Visibility.Visible;
+                                    Lbl_WordToFind.Visibility = Visibility.Hidden;
                                     Lbl_WordToDraw.Visibility = Visibility.Visible;
-									Lbx_WordToFind.Items.Add($"{data}");
-									Canvas_Draw.Visibility = Visibility.Visible;
+                                    Lbx_WordToFind.Items.Add($"{data}");
+                                    Canvas_Draw.Visibility = Visibility.Visible;
                                     Canvas_Result.Visibility = Visibility.Hidden;
+                                    Btn_Clear.Visibility = Visibility.Visible;
                                 });
                             }
+                            // GSR = Guesser l'utente è stato selezionato come guesser 
                             if (data.Contains("<GSR>"))
                             {
                                 data = data.Remove(data.IndexOf("<GSR>"), 5);
@@ -273,39 +298,60 @@ namespace WpfSkribble
                                 Dispatcher.Invoke(() =>
                                 {
                                     Lbx_WordToFind.Items.Clear();
-									Lbx_WordToFind.Visibility = Visibility.Visible;
-									Lbl_WordToFind.Visibility = Visibility.Visible;
-									Lbl_WordToDraw.Visibility = Visibility.Hidden;
-									Lbx_WordToFind.Items.Add($"{data}");
-									Canvas_Draw.Visibility = Visibility.Hidden;
+                                    Lbx_WordToFind.Visibility = Visibility.Visible;
+                                    Lbl_WordToFind.Visibility = Visibility.Visible;
+                                    Lbl_WordToDraw.Visibility = Visibility.Hidden;
+                                    Lbx_WordToFind.Items.Add($"{data}");
+                                    Canvas_Draw.Visibility = Visibility.Hidden;
                                     Canvas_Result.Visibility = Visibility.Visible;
+                                    Btn_Clear.Visibility = Visibility.Hidden;
                                 });
                             }
+                            // GDR = Guessed Right l'utente ha indovinato la parola
                             if (data.Contains("<GDR>"))
                             {
-								data = data.Remove(data.IndexOf("<GDR>"), 5);
+                                data = data.Remove(data.IndexOf("<GDR>"), 5);
                                 clientUser.GuessedRight = true;
-								Dispatcher.Invoke(() =>
-								{
-									Lbx_Chat.Items.Add($"Hai indovinato !");
-								});
-							}
-							if (data.Contains("<END>"))
-							{
-								data = data.Remove(data.IndexOf("<END>"), 5);
-								clientUser.GuessedRight = true;
-								Dispatcher.Invoke(() =>
-								{
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Lbx_Chat.Items.Add($"Hai indovinato !");
+                                });
+                            }
+                            // END indica la fine del round e l'inizio
+                            if (data.Contains("<END>"))
+                            {
+                                data = data.Remove(data.IndexOf("<END>"), 5);
+                                clientUser.GuessedRight = true;
+                                Dispatcher.Invoke(() =>
+                                {
                                     Canvas_Draw.Children.Clear();
                                     Canvas_Result.Children.Clear();
-									Lbx_Chat.Items.Add($"Il gioco è ricominciato");
+                                    Lbx_Chat.Items.Add($"Il gioco è ricominciato");
                                     Lbx_Chat.Items.Add($"Il disegnatore è {data}");
-								});
-							}
-							if (userNames.Count > 0)
+                                });
+                            }
+                            // STP = Stop ferma il round in attesa di utenti
+                            if (data.Contains("<STP>"))
+                            {
+                                data = data.Remove(data.IndexOf("<STP>"), 5);
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Canvas_Draw.Children.Clear();
+                                    Canvas_Result.Children.Clear();
+                                    Lbx_Chat.Items.Add($"Il gioco è fermo per mancanza di utenti");
+                                    Lbx_WordToFind.Visibility = Visibility.Hidden;
+                                    Lbl_WordToFind.Visibility = Visibility.Hidden;
+                                    Lbl_WordToDraw.Visibility = Visibility.Hidden;
+                                    Canvas_Draw.Visibility = Visibility.Hidden;
+                                    Canvas_Result.Visibility = Visibility.Hidden;
+                                    Btn_Clear.Visibility = Visibility.Hidden;
+                                });
+                            }
+                            if (userNames.Count > 0)
                                 foreach (string user in userNames)
                                     if (data.Contains(user))
                                     {
+                                        // EXT = Exit serve per indicare l'uscita di un user
                                         if (data.Contains("<EXT>"))
                                         {
                                             Dispatcher.Invoke(() =>
@@ -333,5 +379,7 @@ namespace WpfSkribble
             }
         }
         #endregion
+
+
     }
 }
