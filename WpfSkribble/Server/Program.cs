@@ -80,7 +80,7 @@ namespace Server
     internal class Program
     {
         static string[] wordsDB = {"scopa", "vecchietta", "montagna","tavolo","telefono","monitor","maglia"};
-        static bool endGame = false;
+        static int endGame = 0;
 		static string wordToGuess = "";
         static byte[] bytes = new byte[1024];
         static object _lock = new object();
@@ -284,7 +284,7 @@ namespace Server
                                 Console.WriteLine(userList[i].Alias + " Exited the chat");
                                 userList.UsersList.RemoveAt(i);
                                 if(userList.UsersList.Count == 1)
-                                    endGame = true;
+                                    endGame = 1;
                             }
                         }
 
@@ -292,17 +292,16 @@ namespace Server
                         {
                             if(!userList[i].Master)
                                 if (userList[i].GuessedRight)
-                                    endGame = true;
-                                else
-                                    endGame = false;
+                                    endGame ++;
+
                             userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes(msg));
                         }
-						if (endGame)
+						if (endGame == userList.UsersList.Count-1 && userList.UsersList.Count > 1)
 						{
 							StartMatch();
-							endGame = false;
 						}
-					}
+                        endGame = 0;
+                    }
                 }
             }
             catch (Exception ex)

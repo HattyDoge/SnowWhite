@@ -326,8 +326,8 @@ namespace WpfSkribble
                                 {
                                     Canvas_Draw.Children.Clear();
                                     Canvas_Result.Children.Clear();
-                                    Lbx_Chat.Items.Add($"Il gioco è ricominciato");
-                                    Lbx_Chat.Items.Add($"Il disegnatore è {data}");
+                                    Lbx_Log.Items.Add($"Il gioco è ricominciato");
+                                    Lbx_Log.Items.Add($"Il disegnatore è {data}");
                                 });
                             }
                             // STP = Stop ferma il round in attesa di utenti
@@ -338,7 +338,7 @@ namespace WpfSkribble
                                 {
                                     Canvas_Draw.Children.Clear();
                                     Canvas_Result.Children.Clear();
-                                    Lbx_Chat.Items.Add($"Il gioco è fermo per mancanza di utenti");
+                                    Lbx_Log.Items.Add($"Il gioco è fermo per mancanza di utenti");
                                     Lbx_WordToFind.Visibility = Visibility.Hidden;
                                     Lbl_WordToFind.Visibility = Visibility.Hidden;
                                     Lbl_WordToDraw.Visibility = Visibility.Hidden;
@@ -372,6 +372,17 @@ namespace WpfSkribble
                             });
 
                         }
+                        Dispatcher.Invoke(() =>
+                        {
+                            if (Lbx_Chat.Items.Count > 18)
+                            {
+                                Lbx_Chat.Items.RemoveAt(0);
+                            }
+                            if (Lbx_Log.Items.Count > 18)
+                            {
+                                Lbx_Log.Items.RemoveAt(0);
+                            }
+                        });
                     }
                 }
 
