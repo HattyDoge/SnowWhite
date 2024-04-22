@@ -247,6 +247,7 @@ namespace WpfSkribble
 
                             if (parts.Length == 4)
                             {
+                                // Traduce il messagio in arrivo in modo che sia comprensibile dal canvas
                                 Dispatcher.Invoke(() =>
                                 {
                                     Line line = new Line();
@@ -374,6 +375,7 @@ namespace WpfSkribble
                         }
                         Dispatcher.Invoke(() =>
                         {
+                            // Mantiene la chat pulita
                             if (Lbx_Chat.Items.Count > 18)
                             {
                                 Lbx_Chat.Items.RemoveAt(0);

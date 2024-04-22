@@ -93,7 +93,7 @@ namespace Server
             Console.Title = "Frassineti Leonardo 4H";
 
 
-            Console.WriteLine("\nProgramma Server Frassineti Leonardo\n");
+            Console.WriteLine("\nProgramma Server Frassineti Leonardo 4H 22-04-2024\n");
             //Establish the local endpoint for the socket
             //Dns.GetHostName returns the name of the host running the application
             
@@ -219,9 +219,11 @@ namespace Server
                 }
             }
             else
+                // STP = Stop ferma il round in attesa di utenti
                 userList[0].SocketAlias.Send(Encoding.UTF8.GetBytes($"<LOG><STP><EOF>"));
             addScore = defaultScore;
             Thread.Sleep(1);
+            //Invia lo score a tutti
             for (int i = 0;i < userList.UsersList.Count;i++)
             {
                 userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("Score:<EOF>"));
@@ -257,16 +259,21 @@ namespace Server
                                     {
                                         msg = msg.Remove(msg.IndexOf("<EOF>"), 5);
                                         if (msg.StartsWith("<LOG><EXT>"))
+                                        {
+                                            
                                             throw new Exception();
+                                        }
                                         // Controlla se la parola è quella scelta dal master
                                         if (!userList[i].Master)
                                         {
                                             // Controlla se l'utente ha azzeccato la parola
                                             if (msg.Remove(0, userList[i].Alias.Length + 2).ToLower() == wordToGuess.ToLower())
                                             {
+                                                //Gestisce le risposte e lo score
                                                 userList[i].GuessedRight = true;
                                                 userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes("<LOG><GDR><EOF>"));
                                                 userList[i].score += addScore;
+                                                //Diminiusce lo score finchè non è a 30 per tenere uno aumento base
                                                 if(addScore >= 40)
                                                     addScore -= 10;
                                             }
@@ -280,15 +287,18 @@ namespace Server
                             }
                             catch (Exception e)
                             {
+                                //Gestisce le disconnessioni
                                 msg = "<LOG>" + userList[i].Alias + "<EXT><EOF>";
                                 Console.WriteLine(userList[i].Alias + " Exited the chat");
                                 userList.UsersList.RemoveAt(i);
-                                if(userList.UsersList.Count == 1)
+                                //Ricomincia
+                                StartMatch();
+                                if (userList.UsersList.Count == 1)
                                     endGame = 1;
                             }
                         }
-
-						for (int i = 0; i < userList.UsersList.Count; i++)
+                        // Controlla se tutti tranne il master abbiano risposto giusto
+                        for (int i = 0; i < userList.UsersList.Count; i++)
                         {
                             if(!userList[i].Master)
                                 if (userList[i].GuessedRight)
@@ -296,6 +306,7 @@ namespace Server
 
                             userList[i].SocketAlias.Send(Encoding.UTF8.GetBytes(msg));
                         }
+                        //Ricomincia il match
 						if (endGame == userList.UsersList.Count-1 && userList.UsersList.Count > 1)
 						{
 							StartMatch();
